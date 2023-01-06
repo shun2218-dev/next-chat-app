@@ -1,0 +1,14 @@
+@use "../config//variables" as var;
+.email {
+  box-sizing: border-box;
+  width: 480px;
+  display: flex;
+  color: var.$white;
+  background-color: var.$gray;
+  padding: 30px;
+  justify-content: center;
+  align-items: center;
+  & p {
+    margin: 0;
+  }
+}

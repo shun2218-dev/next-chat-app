@@ -1,0 +1,50 @@
+@use "../config/variables" as var;
+@use "../config/mixin" as mix;
+
+.groupList {
+  max-height: 80%;
+  height: 330px;
+  overflow-y: auto;
+  width: 600px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  @media screen and (max-width: 1000px) {
+    width: 360px;
+  }
+  @media screen and (max-width: 600px) {
+    width: 310px;
+  }
+  @media screen and (max-width: 400px) {
+    width: 280px;
+  }
+}
+
+.group {
+  cursor: pointer;
+  padding: 20px 80px;
+  box-shadow: inset -3px -3px 3px var.$black, inset 1px 1px 3px var.$black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 6px;
+  & p {
+    flex-grow: 1;
+    margin: 0.5rem 0;
+  }
+  @include mix.hoverColor(lighten(var.$white, 20)) {
+    background-color: lighten(var.$black, 20);
+  }
+  @media screen and (max-width: 600px) {
+    padding: 5px 15px;
+  }
+}
+
+.name {
+  font-size: 1rem;
+  @media screen and (max-width: 1000px) {
+    font-size: 0.8rem;
+  }
+  @media screen and (max-width: 400px) {
+    font-size: 0.6rem;
+  }
+}

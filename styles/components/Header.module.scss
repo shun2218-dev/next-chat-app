@@ -1,0 +1,65 @@
+@use "../config//variables" as var;
+.header {
+  display: flex;
+  align-items: center;
+  padding: 20px 80px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  box-sizing: border-box;
+  background-color: var.$black;
+  min-height: 118px;
+  z-index: 3000;
+  &.notLogin {
+    justify-content: flex-start;
+  }
+  &.login {
+    justify-content: space-between;
+  }
+  @media screen and (max-width: 1000px) {
+    padding: 20px 40px;
+  }
+  @media screen and (max-width: 600px) {
+    padding: 16px 15px;
+    min-height: 80.72px;
+  }
+}
+
+.logo {
+  width: 200px;
+  height: 67px;
+  cursor: pointer;
+  @media screen and (max-width: 1000px) {
+    width: 180px;
+    height: 40px;
+  }
+  @media screen and (max-width: 600px) {
+    width: 120px;
+    height: 30px;
+  }
+}
+
+.profile {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  cursor: pointer;
+  @media screen and (max-width: 600px) {
+    gap: 5px;
+    & p {
+      display: none;
+    }
+  }
+}
+
+.avatar {
+  object-fit: cover;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  @media screen and (max-width: 1000px) {
+    height: 40px;
+    width: 40px;
+  }
+}

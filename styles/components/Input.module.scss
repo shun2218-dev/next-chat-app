@@ -1,0 +1,38 @@
+@use "../config/variables" as var;
+.input {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 10px;
+  max-width: 100%;
+  width: 500px;
+  & input {
+    height: 52px;
+    background-color: var.$white;
+    color: var.$black;
+    padding: 0 10px;
+    border: 5px solid var.$white;
+    border-radius: 6px;
+    &:focus {
+      border: 5px solid var.$blue;
+    }
+  }
+  @media screen and (max-width: 1000px) {
+    min-width: 330px;
+    width: 100%;
+    font-size: 0.8rem;
+    & input {
+      box-sizing: border-box;
+      font-size: 0.8rem;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    min-width: 250px;
+    font-size: 0.7rem;
+    & input {
+      box-sizing: border-box;
+      font-size: 0.7rem;
+    }
+  }
+}

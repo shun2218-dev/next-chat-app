@@ -1,0 +1,40 @@
+@use "../config//variables" as var;
+
+.chatRoom {
+  position: absolute;
+  top: 118px;
+  right: 0;
+  box-sizing: border-box;
+  width: 75%;
+  padding: 25px;
+  max-height: calc(100% - (118px + 92px));
+  overflow-y: auto;
+  @media screen and (max-width: 1000px) {
+    width: calc(100% - 90px);
+    max-height: calc(100% - (118px + 82px));
+  }
+  @media screen and (max-width: 600px) {
+    top: 81px;
+    max-height: calc(100% - (81px + 82px));
+    width: calc(100% - 70px);
+  }
+}
+
+.notFound {
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background-color: rgba(var.$black, 0.3);
+  border-radius: 12px;
+  box-shadow: 2px 2px 3px 2px var.$black;
+  padding: 0 20px;
+  white-space: pre-wrap;
+  @media screen and (max-width: 1000px) {
+    font-size: 0.8rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.6rem;
+  }
+}

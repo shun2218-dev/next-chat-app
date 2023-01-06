@@ -1,0 +1,27 @@
+@use "../config/variables" as var;
+@use "../config/mixin" as mix;
+
+.icon {
+  width: 28px;
+  font-weight: thin;
+  @media screen and (max-width: 1000px) {
+    min-width: 22px;
+    width: 22px;
+  }
+  &.title {
+    width: 36px;
+    @media screen and (max-width: 1000px) {
+      width: 28px;
+    }
+  }
+}
+
+.send {
+  transform: rotate(90deg);
+  min-width: 24px;
+  color: var.$white;
+  @include mix.disabledStyle(var.$white);
+  @media screen and (max-width: 600) {
+    max-width: 22px;
+  }
+}

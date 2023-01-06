@@ -1,0 +1,123 @@
+@use "../config/variables" as var;
+@use "../config/mixin" as mix;
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(var.$gray, 0.4);
+  z-index: 9000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalBody {
+  background-color: var.$navy;
+  padding: 40px 120px;
+  z-index: 9999;
+  border-radius: 6px;
+  @media screen and (max-width: 1000px) {
+    padding: 30px 100px;
+  }
+  @media screen and (max-width: 600px) {
+    padding: 25px 60px;
+  }
+  @media screen and (max-width: 400px) {
+    padding: 15px 30px;
+  }
+}
+
+.modalButton {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  &.row {
+    flex-direction: row;
+    justify-content: center;
+    gap: 40px;
+  }
+  @media screen and (max-width: 600px) {
+    margin-top: 10px;
+    gap: 10px;
+  }
+}
+
+.title {
+  font-size: 1.5rem;
+  @media screen and (max-width: 600px) {
+    font-size: 0.8rem;
+  }
+}
+
+.userList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+  &.group {
+    height: calc(95% - 110px);
+  }
+  &.invite {
+    height: 270px;
+    margin: 30px 0;
+    @media screen and (max-width: 600px) {
+      margin: 10px 0 15p8;
+    }
+  }
+  @media screen and (max-width: 1000px) {
+    overflow-x: hidden;
+  }
+}
+
+.user {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  padding: 15px;
+  cursor: pointer;
+  & p {
+    flex-grow: 1;
+  }
+  @media screen and (max-width: 600px) {
+    gap: 30px;
+  }
+  @include mix.hoverColor(lighten(var.$white, 20)) {
+    background-color: lighten(var.$black, 20);
+    & img {
+      opacity: 0.6;
+    }
+  }
+}
+
+.passive {
+  background-color: var.$navy;
+}
+
+.label {
+  width: 100%;
+}
+
+.contentTitle {
+  text-align: left;
+  margin: 5px 0;
+}
+
+.contentBox {
+  background-color: rgba(lighten(var.$black, 20), 0.3);
+  padding: 20px;
+  border-radius: 6px;
+}
+
+.text {
+  text-align: center;
+}

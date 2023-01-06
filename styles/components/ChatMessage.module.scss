@@ -1,0 +1,105 @@
+@use "../config//variables" as var;
+.message {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  max-width: 50%;
+  @media screen and (max-width: 800px) {
+    max-width: 100%;
+  }
+}
+
+.bubble {
+  padding: 15px;
+  border-radius: 12px;
+  position: relative;
+  font-size: 0.85rem;
+  @media screen and (max-width: 600px) {
+    font-size: 0.68rem;
+  }
+}
+
+.own {
+  text-align: right;
+  margin-left: auto;
+  &.message {
+    justify-content: flex-end;
+  }
+  & .bubble {
+    background-color: var.$blue;
+    text-align: left;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      right: -4px;
+      width: 0;
+      height: 0;
+      border: solid 10px;
+      transform: rotate(20deg);
+      border-color: var.$blue var.$blue transparent transparent;
+    }
+  }
+  & .text {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}
+
+.partner {
+  text-align: left;
+  & .bubble {
+    background-color: var.$white;
+    color: var.$black;
+    margin-top: 0;
+    margin-left: 60px;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: -3px;
+      width: 0;
+      height: 0;
+      border: solid 10px;
+      transform: rotate(-13deg);
+      border-color: var.$white transparent transparent var.$white;
+    }
+  }
+  & .text {
+    display: flex;
+  }
+}
+
+.text {
+  display: flex;
+  align-items: flex-end;
+  gap: 15px;
+  @media screen and (max-width: 600px) {
+    gap: 8px;
+  }
+}
+
+.profile {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  & p {
+    margin: 0;
+    font-size: 0.85rem;
+    @media screen and (max-width: 600px) {
+      font-size: 0.75rem;
+    }
+  }
+}
+
+.time {
+  font-size: 0.6rem;
+  @media screen and (max-width: 600px) {
+    font-size: 0.5rem;
+  }
+}
+
+.info {
+  font-size: 0.8rem;
+  text-align: center;
+}

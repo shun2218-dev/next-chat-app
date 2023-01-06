@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar {
+  cursor: pointer;
+  @media screen and (max-width: 1000px) {
+    width: 40px !important;
+    height: 40px !important;
+    &.profile {
+      width: 60px !important;
+      height: 60px !important;
+    }
+  }
+  @media screen and (max-width: 400px) {
+    &.profile {
+      width: 40px !important;
+      height: 40px !important;
+    }
+  }
+}

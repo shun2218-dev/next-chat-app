@@ -1,0 +1,31 @@
+@use "../config//variables" as var;
+
+.card {
+  background-color: var.$navy;
+  border-radius: 12px;
+  border: 1px solid var.$navy;
+  height: 200px;
+  width: 420px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  gap: 20px;
+  cursor: pointer;
+  &:hover {
+    border: 1px solid var.$blue;
+  }
+  @media screen and (max-width: 1000px) {
+    font-size: 28px;
+  }
+  @media screen and (max-width: 600px) {
+    height: 160px;
+    width: 300px;
+    font-size: 1rem;
+  }
+  @media screen and (max-width: 400px) {
+    height: 120px;
+    width: 240px;
+    font-size: 0.8rem;
+  }
+}

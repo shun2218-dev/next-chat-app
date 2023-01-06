@@ -1,0 +1,113 @@
+@use "../config/variables" as var;
+@use "../config/mixin" as mix;
+
+.filled {
+  border: none;
+  background-color: transparent;
+  &.primary {
+    color: var.$blue;
+    @include mix.hoverColor(darken(var.$blue, 20));
+    @include mix.disabledStyle(var.$blue);
+  }
+  &.transparent {
+    color: var.$white;
+    @include mix.hoverColor(var.$blue);
+    @include mix.disabledStyle(var.$white);
+  }
+}
+
+.contained {
+  border: none;
+  box-sizing: border-box;
+  &.primary {
+    color: var.$white;
+    background-color: var.$blue;
+    background-image: linear-gradient(135deg, var.$white 50%, transparent 50%);
+    background-position: 100%;
+    background-size: 300%;
+    transition: background 500ms ease-in-out, color 500ms 100ms ease-in-out;
+    @include mix.hoverColor(var.$black) {
+      background-position: 0;
+    }
+    @include mix.disabledStyle(var.$white) {
+      background-color: rgba($color: var.$white, $alpha: 0.5);
+      background-image: none;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    height: 32px !important;
+  }
+}
+
+.outlined {
+  background-color: transparent;
+  &.primary {
+    color: var.$blue;
+    border: 2px solid var.$blue;
+    @include mix.hoverStyle(
+      lighten(var.$blue, 20),
+      2px solid lighten(var.$blue, 20)
+    );
+    @include mix.disabledStyle(var.$blue) {
+      border: 2px solid rgba(var.$blue, 0.5);
+    }
+  }
+  &.transparent {
+    color: var.$white;
+    border: 2px solid var.$white;
+    @include mix.hoverStyle(
+      darken(var.$white, 40),
+      2px solid darken(var.$white, 40)
+    );
+    @include mix.disabledStyle(var.$white) {
+      border: 1px solid rgba(var.$white, 0.5);
+    }
+  }
+  &.error {
+    color: var.$error;
+    border: 2px solid var.$error;
+    @include mix.hoverStyle(
+      lighten(var.$error, 20),
+      2px solid lighten(var.$error, 20)
+    );
+    @include mix.disabledStyle(var.$error) {
+      border: 1px solid rgba(var.$error, 0.5);
+    }
+  }
+  &.success {
+    color: var.$success;
+    border: 2px solid var.$success;
+    @include mix.hoverStyle(
+      lighten(var.$success, 20),
+      2px solid lighten(var.$success, 20)
+    );
+    @include mix.disabledStyle(var.$success) {
+      border: 1px solid rgba(var.$success, 0.5);
+    }
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  @media screen and (max-width: 600px) {
+    font-size: 0.6rem;
+    gap: 5px;
+  }
+}
+
+.header {
+  margin-left: 20px;
+  @media screen and (max-width: 1000px) {
+    margin-left: 5px;
+    box-sizing: border-box;
+  }
+}
