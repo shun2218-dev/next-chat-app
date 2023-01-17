@@ -115,7 +115,7 @@ const UserList: FC<Props> = memo(function UserListMemo({
       (member) => inviteIds.includes(member.id) === false
     );
     setInviteUsers([...invited]);
-  }, [users, allUsers, inviteLists, ids]);
+  }, []);
 
   useEffect(() => {
     if (roomId && group) {
@@ -128,7 +128,7 @@ const UserList: FC<Props> = memo(function UserListMemo({
         unSub();
       };
     }
-  }, [roomId]);
+  }, [roomId, group]);
 
   return (
     <>

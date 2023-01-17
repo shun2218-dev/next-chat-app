@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import "@/styles/globals.scss";
 import { Suspense } from "react";
-import { RecoilRoot } from "recoil";
+// import { RecoilRoot } from "recoil";
 
 export default function RootLayout({
   children,
@@ -23,9 +23,9 @@ export default function RootLayout({
     <html>
       <head />
       <body>
-        <RecoilRoot>
+        <>
           <Suspense fallback={<div>loading...</div>}>{children}</Suspense>
-        </RecoilRoot>
+        </>
       </body>
     </html>
   );

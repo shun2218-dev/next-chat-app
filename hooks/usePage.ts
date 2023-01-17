@@ -2,10 +2,6 @@ import { NavigationState } from "@/types/NavigationState";
 // import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/navigation";
 
-export const typeOfId = (id: string) => {
-  return typeof id === "string" ? id : id[0];
-};
-
 export const usePage = () => {
   // const navigate = useNavigate();
   const router = useRouter();
@@ -63,9 +59,7 @@ export const usePage = () => {
     groupid: string,
     state?: NavigationState
   ) => {
-    const id = typeOfId(uid);
-    const gid = typeOfId(groupid);
-    router.push(`/${id}/group/${gid}`); // query: { ...state }
+    router.push(`/${uid}/group/${groupid}`); // query: { ...state }
   };
 
   const toJoin = (uid: string) => {

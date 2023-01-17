@@ -1,13 +1,17 @@
 "use client";
-import React, { memo, Fragment, FC } from "react";
+
+import React, { memo, Fragment, FC, useTransition } from "react";
+import dynamic from "next/dynamic";
 import { formatDate } from "@/utils/formatDate";
 import { useChatMessage } from "@/hooks/useChatMessage";
 
-import ChatMessage from "@/components/chatMessage";
-import MessageDate from "@/components/messageDate";
+const ChatMessage = dynamic(
+  async () => await import("@/components/chatMessage")
+);
+const MessageDate = dynamic(
+  async () => await import("@/components/messageDate")
+);
 import { PageParam } from "@/types/PageParam";
-
-import { useTransition } from "react";
 
 type Props = {
   params: PageParam;

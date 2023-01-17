@@ -1,15 +1,24 @@
 "use client";
-import React, { useState, useEffect, ReactNode, FormEvent } from "react";
+import React, {
+  useState,
+  useEffect,
+  ReactNode,
+  FormEvent,
+  useTransition,
+} from "react";
 import { PageParam } from "@/types/PageParam";
-import MessageInput from "@/components/messageInput";
+import dynamic from "next/dynamic";
 import { useChatMessage } from "@/hooks/useChatMessage";
 import styles from "@/styles/pages/Private.module.scss";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/firebase";
-import NotFoundIcon from "@/icons/notFoundIcon";
-import UserList from "@/components/userList";
 import { useAuthUser } from "@/atoms/useAuthUser";
-import { useTransition } from "react";
+
+const MessageInput = dynamic(
+  async () => await import("@/components/messageInput")
+);
+const NotFoundIcon = dynamic(async () => await import("@/icons/notFoundIcon"));
+const UserList = dynamic(async () => await import("@/components/userList"));
 
 export default function GroupChatLayout({
   params,
@@ -37,13 +46,8 @@ export default function GroupChatLayout({
         startTransition(() => {
           setLoading(true);
         });
-        const groupRef = collection(
-          db,
-          "groups",
-          typeof groupid! === "string" ? groupid : groupid![0],
-          "messages"
-        );
-        addDoc(groupRef, {
+        const groupRef = collection(db, "groups", groupid!, "messages");
+        await addDoc(groupRef, {
           message,
           from: uid!,
           createdAt: serverTimestamp(),

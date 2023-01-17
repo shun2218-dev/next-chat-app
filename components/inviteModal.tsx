@@ -71,8 +71,7 @@ const InviteModal: FC<CustomModal> = memo(function InviteModalMemo({
       setTargetIds([]);
       setLoading(false);
     }
-  }, [modalToggle]);
-  console.log(inviteUsers);
+  }, []);
 
   return (
     <Modal title="Select the member to invite" open={open} onSubmit={onSubmit}>

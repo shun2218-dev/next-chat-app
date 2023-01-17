@@ -12,6 +12,7 @@ const nextConfig = withInterceptStdut(
     experimental: {
       appDir: true,
     },
+    staticPageGenerationTimeout: 2000,
   },
   (text) => (text.includes("Duplicate atom key") ? "" : text)
 );
