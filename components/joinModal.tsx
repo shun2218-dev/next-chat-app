@@ -1,6 +1,6 @@
 import React, { FC, memo, useEffect, useState } from "react";
 import { usePage } from "hooks/usePage";
-import { useAuthUser } from "@/atoms/useAuthUser";
+import { useAuthUser } from "@/hooks/useAuthUser";
 import styles from "@/styles/components/Modal.module.scss";
 import utilStyles from "@/styles/utils/utils.module.scss";
 import { db } from "@/firebase";
@@ -26,7 +26,7 @@ const JoinModal: FC<CustomModal> = memo(function JoinModalMemo({
   open,
   modalToggle,
 }) {
-  const authUser = useAuthUser();
+  const { authUser } = useAuthUser();
   const { uid, groupid } = params;
   const { toJoin } = usePage();
   const [groupInfo, setGroupInfo] = useState<DocumentData>({});

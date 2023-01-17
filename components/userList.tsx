@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback, useState, memo, FC } from "react";
 import Image from "next/image";
-import { useAuthUser } from "@/atoms/useAuthUser";
+import { useAuthUser } from "@/hooks/useAuthUser";
 import { usePage } from "hooks/usePage";
 import styles from "@/styles/components/UserList.module.scss";
 import utilStyles from "@/styles/utils/utils.module.scss";
@@ -36,7 +36,7 @@ const UserList: FC<Props> = memo(function UserListMemo({
   const getId = useCallback(() => {
     return pathname?.split("/")[3];
   }, [pathname]);
-  const authUser = useAuthUser();
+  const { authUser } = useAuthUser();
   const { toPrivateRoom } = usePage();
   const [roomId, setRoomId] = useState(getId());
   const [ids, setIds] = useState<string[]>([]);

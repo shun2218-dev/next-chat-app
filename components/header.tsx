@@ -10,7 +10,7 @@ import { PageParam } from "@/types/PageParam";
 
 type Props = {
   params: PageParam;
-  children: ReactNode;
+  children?: ReactNode;
 };
 
 const Header: FC<Props> = memo(function HeaderMemo({ params, children }) {

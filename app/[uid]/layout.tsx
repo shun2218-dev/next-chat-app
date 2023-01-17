@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useTransition } from "react";
-import { useAuthUser } from "@/atoms/useAuthUser";
+import { useAuthUser } from "@/hooks/useAuthUser";
 import { usePage } from "@/hooks/usePage";
 import { PageParam } from "@/types/PageParam";
 import { useSignOut } from "@/hooks/useSignOut";
@@ -20,7 +20,7 @@ export default function UserLayout({
   children: React.ReactNode;
   params: PageParam;
 }) {
-  const authUser = useAuthUser();
+  const { authUser } = useAuthUser();
   const { toProfile, toLogin } = usePage();
   const [isPending, startTransition] = useTransition();
   const { signOut, error, loading } = useSignOut();

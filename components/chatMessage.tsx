@@ -9,7 +9,7 @@ import { Message } from "@/types/Message";
 import Avatar from "./avatar";
 import InfoMessage from "./infoMessage";
 import { useSmoothScroll } from "hooks/useSmoothScroll";
-import { useAuthUser } from "@/atoms/useAuthUser";
+import { useAuthUser } from "@/hooks/useAuthUser";
 
 type Info = {
   displayName: string;
@@ -28,7 +28,7 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
   isLastMessage,
 }) {
   // const { uid, partnerid, groupid } = useParams();
-  const authUser = useAuthUser();
+  const { authUser } = useAuthUser();
   const [userInfo, setUserInfo] = useState<Info>({
     displayName: "",
     photoURL: "",

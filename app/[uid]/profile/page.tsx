@@ -4,7 +4,7 @@ import { usePage } from "@/hooks/usePage";
 import { auth, db, storage } from "@/firebase";
 import { updateProfile } from "firebase/auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useAuthUser, useSetAuthUser } from "@/atoms/useAuthUser";
+import { useAuthUser } from "@/hooks/useAuthUser";
 import { doc, updateDoc } from "firebase/firestore";
 
 import Avatar from "@/components/avatar";
@@ -13,13 +13,14 @@ import Form from "@/components/form";
 import Input from "@/components/input";
 import SettingIcon from "@/icons/settingIcon";
 import UploadIcon from "@/icons/uploadIcon";
+import { useAuthUserStore } from "@/atoms/useAuthUserStore";
 // import FlashMessage from "@/components/flashMessage";
 // import { useFlashMessage } from "@/hooks/useFlashMessage";
 
 const Profile = memo(function ProfileMemo() {
   const { toHome } = usePage();
-  const authUser = useAuthUser();
-  const setAuthUser = useSetAuthUser();
+  const { authUser } = useAuthUser();
+  const { setState } = useAuthUserStore;
   // const { flashState, messageState } = useFlashMessage(10000);
   const [image, setImage] = useState<File | null>(null);
   const nameRef = useRef<HTMLInputElement>(null);
@@ -49,7 +50,8 @@ const Profile = memo(function ProfileMemo() {
             photoURL: url,
           })
             .then(() => {
-              setAuthUser({ displayName: name, photoURL: url, email, uid });
+              const authUser = { displayName: name, photoURL: url, email, uid };
+              setState({ authUser });
             })
             .then(async () => await updateUserProfile(uid, name, url))
             .then(() =>
@@ -66,12 +68,13 @@ const Profile = memo(function ProfileMemo() {
         displayName: name,
       })
         .then(() => {
-          setAuthUser({
+          const _authUser = {
             displayName: name,
             photoURL: authUser.photoURL,
             email,
             uid,
-          });
+          };
+          setState({ authUser: _authUser });
         })
         .then(
           async () => await updateUserProfile(uid, name, authUser.photoURL!)

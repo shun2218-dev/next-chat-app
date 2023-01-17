@@ -5,7 +5,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { PageParam } from "@/types/PageParam";
 import styles from "@/styles/layout.module.scss";
-import { useAuthUser } from "@/atoms/useAuthUser";
+import { useAuthUser } from "@/hooks/useAuthUser";
 import { usePage } from "@/hooks/usePage";
 import { useSignOut } from "@/hooks/useSignOut";
 // import { RecoilRoot } from "recoil";
@@ -22,7 +22,7 @@ export default function ResetLayout({
   params: PageParam;
 }) {
   const [isPending, startTransition] = useTransition();
-  const authUser = useAuthUser();
+  const { authUser } = useAuthUser();
   const { toProfile } = usePage();
   const { signOut, error, loading } = useSignOut();
   return (

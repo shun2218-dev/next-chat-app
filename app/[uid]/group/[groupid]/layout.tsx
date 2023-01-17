@@ -12,7 +12,7 @@ import { useChatMessage } from "@/hooks/useChatMessage";
 import styles from "@/styles/pages/Private.module.scss";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/firebase";
-import { useAuthUser } from "@/atoms/useAuthUser";
+import { useAuthUser } from "@/hooks/useAuthUser";
 
 const MessageInput = dynamic(
   async () => await import("@/components/messageInput")
@@ -34,7 +34,7 @@ export default function GroupChatLayout({
   );
   const [message, setMessage] = useState("");
   const [notHistory, setNotHistory] = useState(false);
-  const authUser = useAuthUser();
+  const { authUser } = useAuthUser();
   const [isPending, startTransition] = useTransition();
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {

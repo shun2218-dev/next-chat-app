@@ -7,7 +7,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { useAuthUser } from "@/atoms/useAuthUser";
+import { useAuthUser } from "@/hooks/useAuthUser";
 import { usePage } from "hooks/usePage";
 // import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 // import { Skeleton } from "@mui/material";
@@ -34,7 +34,7 @@ const Avatar: FC<Props> = ({
   profile = false,
 }) => {
   const { toProfile } = usePage();
-  const authUser = useAuthUser();
+  const { authUser } = useAuthUser();
   const [url, setUrl] = useState<string | null>(null);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (setState) {

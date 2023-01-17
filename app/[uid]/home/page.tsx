@@ -1,6 +1,6 @@
 "use client";
 import React, { memo } from "react";
-import { useAuthUser } from "@/atoms/useAuthUser";
+import { useAuthUser } from "@/hooks/useAuthUser";
 import { usePage } from "hooks/usePage";
 import styles from "@/styles/pages/Home.module.scss";
 // import { useFlashMessage } from "@/hooks/useFlashMessage";
@@ -11,7 +11,7 @@ import PrivateIcon from "@/icons/privateIcon";
 import GroupIcon from "@/icons/groupIcon";
 
 const Home = memo(function HomeMemo() {
-  const authUser = useAuthUser();
+  const { authUser } = useAuthUser();
   const { toPrivate, toGroup } = usePage();
   // const { messageState, flashState } = useFlashMessage(10000);
 
