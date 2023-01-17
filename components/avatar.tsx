@@ -9,8 +9,8 @@ import React, {
 } from "react";
 import { useAuthUser } from "@/hooks/useAuthUser";
 import { usePage } from "hooks/usePage";
-// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-// import { Skeleton } from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Skeleton } from "@mui/material";
 import styles from "@/styles/components/Avatar.module.scss";
 import Image from "next/image";
 
@@ -78,8 +78,8 @@ const Avatar: FC<Props> = ({
               height={60}
             />
           ) : (
-            // <Skeleton variant="circular" width={size} height={size} />
-            <div>loading...</div>
+            <Skeleton variant="circular" width={size} height={size} />
+            // <div>loading...</div>
           )
         ) : state !== undefined && state !== null ? (
           <Image
@@ -101,8 +101,8 @@ const Avatar: FC<Props> = ({
             height={60}
           />
         ) : (
-          // <AccountCircleIcon sx={{ width: size, height: size }} />
-          <div>Account Circle</div>
+          <AccountCircleIcon sx={{ width: size, height: size }} />
+          // <div>Account Circle</div>
         )}
       </div>
     );

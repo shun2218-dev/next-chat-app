@@ -1,31 +1,41 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import "@/styles/globals.scss";
-import { Suspense } from "react";
-// import { RecoilRoot } from "recoil";
+import { usePathname } from "next/navigation";
+import dynamic from "next/dynamic";
+import Header from "@/components/header";
+
+// const Header = dynamic(() => import("@/components/header"));
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  console.log(pathname);
   useEffect(() => {
     const addHomeClass = () => {
       const bodyClasses = document.body.classList;
       if (!bodyClasses.contains("home")) {
-        bodyClasses.remove("pace-done");
+        // bodyClasses.remove("pace-done");
         bodyClasses.add("home");
       }
     };
-    addHomeClass();
-  }, []);
+    if (pathname === "/" || pathname === "/start") {
+      addHomeClass();
+    } else {
+      document.body.classList.remove("home");
+    }
+  }, [pathname]);
   return (
     <html>
       <head />
       <body>
-        <>
-          <Suspense fallback={<div>loading...</div>}>{children}</Suspense>
-        </>
+        <Suspense fallback={<div>page loading...</div>}>
+          <Header />
+          {children}
+        </Suspense>
       </body>
     </html>
   );

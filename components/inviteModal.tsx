@@ -13,6 +13,7 @@ import { getUserInfo } from "@/utils/getUserInfo";
 import { db } from "@/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { CustomModal } from "@/types/CustomModal";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import Button from "./button";
 import Modal from "./modal";
@@ -71,7 +72,7 @@ const InviteModal: FC<CustomModal> = memo(function InviteModalMemo({
       setTargetIds([]);
       setLoading(false);
     }
-  }, []);
+  }, [modalToggle]);
 
   return (
     <Modal title="Select the member to invite" open={open} onSubmit={onSubmit}>
@@ -90,7 +91,7 @@ const InviteModal: FC<CustomModal> = memo(function InviteModalMemo({
                   value={user.id}
                   onChange={onChange}
                 />
-                {user.data().photoURL && (
+                {user.data().photoURL ? (
                   <Image
                     src={user.data().photoURL}
                     alt=""
@@ -98,8 +99,23 @@ const InviteModal: FC<CustomModal> = memo(function InviteModalMemo({
                     width={60}
                     height={60}
                   />
+                ) : (
+                  <AccountCircleIcon
+                    sx={{
+                      width: 60,
+                      height: 60,
+                      "@media screen and (max-width:1000px)": {
+                        width: 40,
+                        height: 40,
+                      },
+                    }}
+                  />
                 )}
-                <p>{user.data().displayName}</p>
+                <p>
+                  {user.data().displayName
+                    ? user.data().displayName
+                    : "Unknown"}
+                </p>
               </li>
             </label>
           ))

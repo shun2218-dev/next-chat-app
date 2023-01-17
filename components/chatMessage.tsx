@@ -1,8 +1,8 @@
 import React, { useState, useEffect, FC, memo } from "react";
-// import { Skeleton } from "@mui/material";
+import { Skeleton } from "@mui/material";
 import { formatTime } from "@/utils/formatTime";
 import { getUserInfo } from "@/utils/getUserInfo";
-// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import styles from "@/styles/components/ChatMessage.module.scss";
 import { Message } from "@/types/Message";
 
@@ -118,8 +118,8 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
             {userInfo.photoURL ? (
               <Avatar size={40} storageRef={userInfo.photoURL} chat />
             ) : (
-              // <AccountCircleIcon sx={{ width: "40px", height: "40px" }} />
-              <div>Account Circle</div>
+              <AccountCircleIcon sx={{ width: "40px", height: "40px" }} />
+              // <div>Account Circle</div>
             )}
             <p>
               {userInfo.displayName !== undefined
@@ -132,8 +132,8 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
             {createdAt !== null ? (
               <p className={styles.time}>{formatTime(createdAt)}</p>
             ) : (
-              // <Skeleton variant="text" width={40} height={24} />
-              <div>loading...</div>
+              <Skeleton variant="text" width={40} height={24} />
+              // <div>loading...</div>
             )}
           </li>
         </ul>

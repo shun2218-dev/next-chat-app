@@ -12,7 +12,7 @@ import React, {
 import { useCreateGroup } from "@/hooks/useCreateGroup";
 import { usePage } from "@/hooks/usePage";
 import utilStyles from "@/styles/utils/utils.module.scss";
-// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import Form from "@/components/form";
 import Input from "@/components/input";
@@ -62,8 +62,8 @@ const Create: FC<Props> = memo(function CreateMemo({ params }) {
         />
       );
     } else {
-      // return <AccountCircleIcon sx={{ width: "60px", height: "60px" }} />;
-      return <div>AccountCircle</div>;
+      return <AccountCircleIcon sx={{ width: "60px", height: "60px" }} />;
+      // return <div>AccountCircle</div>;
     }
   };
 

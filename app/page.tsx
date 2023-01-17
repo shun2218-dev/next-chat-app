@@ -7,5 +7,5 @@ export default function Page() {
   useEffect(() => {
     router.push("/start");
   }, [router]);
-  return <div></div>;
+  return <div>redirect</div>;
 }

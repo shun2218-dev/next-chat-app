@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "@/firebase";
 
-// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Button from "./button";
 import JoinModal from "./joinModal";
 import ExitModal from "./exitModal";
@@ -82,6 +82,7 @@ const UserList: FC<Props> = memo(function UserListMemo({
     const unSubUser = onSnapshot(userRef, (snapshot) => {
       setAllUsers([...snapshot.docs.map((doc) => doc)]);
     });
+
     if (group && roomId) {
       const groupRef = collection(db, "groups", roomId, "members");
       const unSub = onSnapshot(groupRef, (snapshot) => {
@@ -115,7 +116,7 @@ const UserList: FC<Props> = memo(function UserListMemo({
       (member) => inviteIds.includes(member.id) === false
     );
     setInviteUsers([...invited]);
-  }, []);
+  }, [allUsers]);
 
   useEffect(() => {
     if (roomId && group) {
@@ -129,7 +130,6 @@ const UserList: FC<Props> = memo(function UserListMemo({
       };
     }
   }, [roomId, group]);
-
   return (
     <>
       <JoinModal params={params} open={joinOpen} modalToggle={modalToggle} />
@@ -151,7 +151,7 @@ const UserList: FC<Props> = memo(function UserListMemo({
       />
       <div className={styles.container}>
         <p className={styles.listTitle}>
-          {group ? `Members (${users.length})` : "Users"}
+          {group ? "Members" : "Users"} {`(${users.length})`}
         </p>
         <ul className={styles.memberList}>
           <ul
@@ -179,17 +179,17 @@ const UserList: FC<Props> = memo(function UserListMemo({
                       className={utilStyles.avatar}
                     />
                   ) : (
-                    // <AccountCircleIcon
-                    //   sx={{
-                    //     width: 60,
-                    //     height: 60,
-                    //     "@media screen and (max-width:1000px)": {
-                    //       width: 40,
-                    //       height: 40,
-                    //     },
-                    //   }}
-                    // />
-                    <div>Account Circle</div>
+                    <AccountCircleIcon
+                      sx={{
+                        width: 60,
+                        height: 60,
+                        "@media screen and (max-width:1000px)": {
+                          width: 40,
+                          height: 40,
+                        },
+                      }}
+                    />
+                    // <div>Account Circle</div>
                   )}
                   <p>{user.data().displayName ?? "Unknown"}</p>
                 </li>

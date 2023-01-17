@@ -39,3 +39,27 @@
     height: 30px;
   }
 }
+
+.profile {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  cursor: pointer;
+  @media screen and (max-width: 600px) {
+    gap: 5px;
+    & p {
+      display: none;
+    }
+  }
+}
+
+.avatar {
+  object-fit: cover;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  @media screen and (max-width: 1000px) {
+    height: 40px;
+    width: 40px;
+  }
+}

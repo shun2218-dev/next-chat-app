@@ -1,32 +1,31 @@
-import React, { FC, memo, ReactNode } from "react";
+import React, { FC, memo, ReactNode, useEffect, useTransition } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { usePage } from "@/hooks/usePage";
 import logo from "/public/logo.svg";
 import styles from "@/styles/components/Header.module.scss";
-// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useAuthUserStore } from "@/atoms/useAuthUserStore";
+import { useSignOut } from "@/hooks/useSignOut";
 
-import { PageParam } from "@/types/PageParam";
+const Button = dynamic(() => import("@/components/button"));
+const SignOutIcon = dynamic(() => import("@/icons/signOutIcon"));
 
 type Props = {
-  params: PageParam;
   children?: ReactNode;
 };
 
-const Header: FC<Props> = memo(function HeaderMemo({ params, children }) {
-  const { toStart, toHome } = usePage();
-
+const Header: FC<Props> = memo(function HeaderMemo({ children }) {
+  const { toStart, toHome, toProfile } = usePage();
   const pathname = usePathname();
-  const { uid } = params;
+  const authUser = useAuthUserStore((state) => state.authUser);
+  const [isPending, startTransition] = useTransition();
+  const { signOut, error, loading } = useSignOut();
 
-  // const {
-  //   pathname,
-  //   query: { uid },
-  // } = router;
-
-  const logoNavigate = (authUser: string) => {
-    if (authUser) {
-      toHome(uid!);
+  const logoNavigate = (uid: string | undefined) => {
+    if (uid) {
+      toHome(uid);
     } else {
       toStart();
     }
@@ -36,7 +35,9 @@ const Header: FC<Props> = memo(function HeaderMemo({ params, children }) {
     <>
       {pathname !== "/start" && pathname !== "/" && (
         <header
-          className={`${styles.header} ${uid ? styles.login : styles.notLogin}`}
+          className={`${styles.header} ${
+            authUser?.uid ? styles.login : styles.notLogin
+          }`}
         >
           {/* after log in switch toHome */}
           <Image
@@ -44,10 +45,58 @@ const Header: FC<Props> = memo(function HeaderMemo({ params, children }) {
             alt="logo"
             width={200}
             height={67}
-            onClick={() => logoNavigate(uid!)}
+            onClick={() => logoNavigate(authUser?.uid)}
             className={styles.logo}
             priority
           />
+
+          {authUser && !isPending && (
+            <div className={styles.profile}>
+              <p>{authUser.displayName}</p>
+              {authUser.photoURL ? (
+                <Image
+                  src={authUser.photoURL}
+                  alt=""
+                  className={styles.avatar}
+                  onClick={() => toProfile(authUser.uid)}
+                  width={60}
+                  height={60}
+                />
+              ) : (
+                <AccountCircleIcon
+                  sx={{
+                    width: 60,
+                    height: 60,
+                    "@media screen and (max-width:600px)": {
+                      width: 40,
+                      height: 40,
+                    },
+                  }}
+                  onClick={() => toProfile(authUser?.uid)}
+                />
+                // <div>Account CirCle</div>
+              )}
+              <Button
+                type="button"
+                variant="outlined"
+                color="primary"
+                onClick={async () => {
+                  try {
+                    await signOut();
+                  } catch (err: any) {
+                    if (error) {
+                      console.log(error.message);
+                    }
+                  }
+                }}
+                startIcon={<SignOutIcon />}
+                header
+                disabled={loading}
+              >
+                Sign Out
+              </Button>
+            </div>
+          )}
           {children}
         </header>
       )}
