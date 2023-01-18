@@ -1,4 +1,5 @@
 @use "../config//variables" as var;
+@import url("https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap");
 .message {
   margin: 20px 0;
   display: flex;
@@ -14,6 +15,7 @@
   border-radius: 12px;
   position: relative;
   font-size: 0.85rem;
+  font-family: var(--font-caveat), "Yuji Mai", serif;
   @media screen and (max-width: 600px) {
     font-size: 0.68rem;
   }
