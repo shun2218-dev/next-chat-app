@@ -58,6 +58,8 @@ const Create: FC<Props> = memo(function CreateMemo({ params }) {
         <Image
           src={URL.createObjectURL(image)}
           alt=""
+          width={60}
+          height={60}
           className={utilStyles.avatar}
         />
       );

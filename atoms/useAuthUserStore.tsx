@@ -59,7 +59,7 @@ type Reducer = (
   authUser: Pick<User, "uid" | "email" | "displayName" | "photoURL"> | null
 ) => void;
 
-type AuthUserState = {
+export type AuthUserState = {
   authUser: AuthUser | null;
   isLogin: () => boolean;
   //   login: (authUser: Pick<User, "uid" | "email" | "displayName">) => void;

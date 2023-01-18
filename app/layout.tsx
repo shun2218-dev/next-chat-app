@@ -2,10 +2,10 @@
 import React, { useEffect, Suspense } from "react";
 import "@/styles/globals.scss";
 import { usePathname } from "next/navigation";
-import dynamic from "next/dynamic";
 import Header from "@/components/header";
-
-// const Header = dynamic(() => import("@/components/header"));
+import { caveat } from "fonts/googleFonts";
+import { usePage } from "@/hooks/usePage";
+import { useAuthUserStore } from "@/atoms/useAuthUserStore";
 
 export default function RootLayout({
   children,
@@ -13,6 +13,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const { toLogin, toHome } = usePage();
+  const authUser = useAuthUserStore((state) => state.authUser);
   useEffect(() => {
     const addHomeClass = () => {
       const bodyClasses = document.body.classList;
@@ -24,10 +26,23 @@ export default function RootLayout({
       addHomeClass();
     } else {
       document.body.classList.remove("home");
+      if (
+        pathname === "/login" ||
+        pathname === "/regist" ||
+        pathname === "/reset"
+      ) {
+        if (authUser !== null) {
+          toHome(authUser.uid);
+        }
+      } else {
+        if (authUser === null) {
+          toLogin();
+        }
+      }
     }
   }, [pathname]);
   return (
-    <html>
+    <html lang="en" className={[caveat.variable].join(" ")}>
       <head />
       <body>
         <Suspense fallback={<div>page loading...</div>}>
