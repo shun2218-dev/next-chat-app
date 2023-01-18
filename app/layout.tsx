@@ -13,12 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  console.log(pathname);
   useEffect(() => {
     const addHomeClass = () => {
       const bodyClasses = document.body.classList;
       if (!bodyClasses.contains("home")) {
-        // bodyClasses.remove("pace-done");
         bodyClasses.add("home");
       }
     };

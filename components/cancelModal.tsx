@@ -36,7 +36,6 @@ const CancelModal: FC<CustomModal> = memo(function CancelModalMemo({
       const inviteRef = doc(db, "groups", gid, "invitations", cancelId);
       setLoading(true);
       await deleteDoc(inviteRef)
-        .then(() => console.log(inviteRef))
         .then(onClose)
         .then(
           async () =>

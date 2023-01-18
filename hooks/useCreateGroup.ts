@@ -8,13 +8,13 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useState } from "react";
 import { usePage } from "./usePage";
 
-import { PageParam } from "@/types/PageParam";
+import { useAuthUserStore } from "@/atoms/useAuthUserStore";
 
-export const useCreateGroup = (pageParams: PageParam) => {
+export const useCreateGroup = () => {
   const [loading, setLoading] = useState(false);
-  const { toGroupRoom, toRedirect } = usePage();
-
-  const { uid } = pageParams;
+  const { toHome, toGroupRoom, toRedirect } = usePage();
+  const authUser = useAuthUserStore((state) => state.authUser);
+  // const { uid } = pageParams;
 
   // if (image && name && uid && email) {
   //   const imageRef = ref(storage, `avaters/${uid}_${image.name}`);
@@ -27,7 +27,7 @@ export const useCreateGroup = (pageParams: PageParam) => {
   //       photoURL: url,
   //     })
   //       .then(() => {
-  //         setAuthUser({ displayName: name, photoURL: url, email, uid });
+  //         setState({ displayName: name, photoURL: url, email, uid });
   //       })
   //       .then(async () => await updateUserProfile(uid, name, url))
   //       .then(() => console.log("Updated profile"))
@@ -52,8 +52,8 @@ export const useCreateGroup = (pageParams: PageParam) => {
     const groupRef = collection(db, "groups");
     await addDoc(groupRef, data)
       .then(async ({ id }) => {
-        const membersRef = doc(db, "groups", id, "members", uid![0]);
-        await getUserInfo(uid![0]).then(async (member) => {
+        const membersRef = doc(db, "groups", id, "members", authUser?.uid!);
+        await getUserInfo(authUser?.uid!).then(async (member) => {
           await setDoc(membersRef, member);
         });
         return id;
@@ -71,7 +71,7 @@ export const useCreateGroup = (pageParams: PageParam) => {
           status: "success",
           text: "Create group succeeded.",
         } as NavigationState;
-        toGroupRoom(uid![0], id, navState);
+        toGroupRoom(authUser?.uid!, id, navState);
         return id;
       })
       .catch((e) => {
