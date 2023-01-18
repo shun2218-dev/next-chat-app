@@ -83,7 +83,9 @@ const Button: FC<Props> = ({
       }}
       className={`${switchStyles(variant)} ${switchBgColor(
         color
-      )} ${switchWidth(fullWidth)} ${styles.button} ${header && styles.header}`}
+      )} ${switchWidth(fullWidth)} ${styles.button} ${
+        header ? styles.header : ""
+      }`}
     >
       {startIcon}
       {children}

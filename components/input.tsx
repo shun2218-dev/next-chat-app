@@ -1,5 +1,6 @@
 import React, { RefObject, forwardRef } from "react";
 import styles from "@/styles/components/Input.module.scss";
+import { caveat, yujiMai } from "fonts/googleFonts";
 
 type Props = {
   type?: "text" | "email" | "password";
@@ -15,7 +16,9 @@ const Input = forwardRef<HTMLInputElement, Props>(function InputForwardRef(
   ref
 ) {
   return (
-    <label className={styles.input}>
+    <label
+      className={[styles.input, caveat.variable, yujiMai.variable].join(" ")}
+    >
       {label}
       <input
         type={type}

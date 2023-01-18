@@ -1,4 +1,5 @@
 @use "../config/variables" as var;
+@import url("https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap");
 .input {
   box-sizing: border-box;
   display: flex;
@@ -7,6 +8,7 @@
   gap: 10px;
   max-width: 100%;
   width: 500px;
+  font-family: var(--font-caveat), "Yuji Mai", serif;
   & input {
     height: 52px;
     background-color: var.$white;
@@ -14,6 +16,10 @@
     padding: 0 10px;
     border: 5px solid var.$white;
     border-radius: 6px;
+    font-family: var(--font-caveat), "Yuji Mai", serif;
+    &::placeholder {
+      font-family: var(--font-caveat), "Yuji Mai", serif;
+    }
     &:focus {
       border: 5px solid var.$blue;
     }
