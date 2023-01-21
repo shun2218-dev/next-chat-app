@@ -79,7 +79,7 @@ const Button: FC<Props> = ({
         width: `${width}`,
         height: `${height}`,
         margin: `${margin}`,
-        borderRadius: `${rounded ? "24px" : "6px"}`,
+        // borderRadius: `${rounded ? "24px" : "6px"}`,
       }}
       className={`${switchStyles(variant)} ${switchBgColor(
         color

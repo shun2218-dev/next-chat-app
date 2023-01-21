@@ -18,12 +18,13 @@ export default function Error({ error }: { error: Error }) {
   useEffect(() => {
     // Log the error to an error reporting service
     console.error(error);
+    console.log(error.message);
   }, [error]);
 
   return (
     <div>
-      <h2>Something went wrong!</h2>
-      <button onClick={() => onClick(state)}></button>
+      <h2>Something Error!</h2>
+      <button onClick={() => onClick(state)}>Back to Top</button>
     </div>
   );
 }

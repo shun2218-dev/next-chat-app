@@ -1,9 +1,10 @@
 "use client";
 import React, { useEffect, Suspense } from "react";
+import "@/styles/fonts/soLovely.css";
 import "@/styles/globals.scss";
 import { usePathname } from "next/navigation";
 import Header from "@/components/header";
-import { caveat } from "fonts/googleFonts";
+// import { caveat } from "fonts/googleFonts";
 import { usePage } from "@/hooks/usePage";
 import { useAuthUserStore } from "@/atoms/useAuthUserStore";
 
@@ -42,7 +43,8 @@ export default function RootLayout({
     }
   }, [pathname]);
   return (
-    <html lang="en" className={[caveat.variable].join(" ")}>
+    // <html lang="en" className={[caveat.variable].join(" ")}>
+    <html lang="en">
       <head />
       <body>
         <Suspense fallback={<div>page loading...</div>}>

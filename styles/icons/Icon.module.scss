@@ -19,8 +19,8 @@
 .send {
   transform: rotate(90deg);
   min-width: 24px;
-  color: var.$white;
-  @include mix.disabledStyle(var.$white);
+  color: var.$primary;
+  @include mix.disabledStyle(var.$font-color);
   @media screen and (max-width: 600) {
     max-width: 22px;
   }

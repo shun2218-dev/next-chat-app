@@ -7,7 +7,7 @@
   bottom: 0;
   right: 0;
   padding: 30px;
-  background-color: var.$navy;
+  background-color: var.$card-color;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,8 +27,9 @@
   background-color: transparent;
   width: 40%;
   height: 20px;
-  color: var.$white;
+  color: var.$primary;
   padding-bottom: 10px;
+  font-family: so-lovely, "Yuji Mai", serif;
   @media screen and (max-width: 1000px) {
     height: 10px;
   }

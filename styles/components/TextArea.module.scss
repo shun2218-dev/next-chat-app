@@ -8,22 +8,25 @@
   gap: 10px;
   width: 100%;
   width: 500px;
-  font-family: var(--font-caveat), "Yuji Mai", serif;
+  // font-family: var(--font-caveat), "Yuji Mai", serif;
+  font-family: so-lovely, "Yuji Mai", serif;
   & textarea {
     padding: 10px;
     resize: none;
     height: 104px;
-    background-color: var.$white;
+    background-color: var.$font-color;
     color: var.$black;
     padding: 10px 10px;
-    border: 5px solid var.$white;
-    border-radius: 6px;
-    font-family: var(--font-caveat), "Yuji Mai", serif;
+    border: 5px solid var.$font-color;
+    // border-radius: 6px;
+    // font-family: var(--font-caveat), "Yuji Mai", serif;
+    font-family: so-lovely, "Yuji Mai", serif;
     &::placeholder {
-      font-family: var(--font-caveat), "Yuji Mai", serif;
+      // font-family: var(--font-caveat), "Yuji Mai", serif;
+      font-family: so-lovely, "Yuji Mai", serif;
     }
     &:focus {
-      border: 5px solid var.$blue;
+      border: 5px solid var.$primary;
     }
   }
   @media screen and (max-width: 1000px) {

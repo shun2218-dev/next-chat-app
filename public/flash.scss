@@ -1,3 +1,4 @@
+$primary: #fff;
 .pace {
   -webkit-pointer-events: none;
   pointer-events: none;
@@ -5,7 +6,7 @@
   -moz-user-select: none;
   user-select: none;
   & .pace-progress {
-    background: #61dafb;
+    background: $primary;
     position: fixed;
     z-index: 2000;
     top: 118px;
@@ -22,7 +23,7 @@
     right: 0px;
     width: 100px;
     height: 100%;
-    /* box-shadow: 0 0 10px #61dafb, 0 0 5px #61dafb; */
+    // box-shadow: 0 0 10px $primary, 0 0 5px $primary;
     opacity: 1;
     -webkit-transform: rotate(3deg) translate(0px, -4px);
     -moz-transform: rotate(3deg) translate(0px, -4px);
@@ -39,8 +40,8 @@
     width: 14px;
     height: 14px;
     border: solid 2px transparent;
-    border-top-color: #61dafb;
-    border-left-color: #61dafb;
+    border-top-color: $primary;
+    border-left-color: $primary;
     border-radius: 10px;
     -webkit-animation: pace-spinner 400ms linear infinite;
     -moz-animation: pace-spinner 400ms linear infinite;
