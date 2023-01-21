@@ -1,9 +1,9 @@
 @use "../config//variables" as var;
 
 .card {
-  background-color: var.$navy;
-  border-radius: 12px;
-  border: 1px solid var.$navy;
+  background-color: var.$card-color;
+  // border-radius: 12px;
+  border: 1px solid var.$card-color;
   height: 200px;
   width: 420px;
   display: flex;
@@ -13,7 +13,7 @@
   gap: 20px;
   cursor: pointer;
   &:hover {
-    border: 1px solid var.$blue;
+    border: 1px solid var.$primary;
   }
   @media screen and (max-width: 1000px) {
     font-size: 28px;

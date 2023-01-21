@@ -1,5 +1,10 @@
 @use "../config//variables" as var;
 @import url("https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap");
+$own-text: var.$primary;
+$own-bg: var.$font-color;
+$partner-text: var.$secondary;
+$partner-bg: var.$primary;
+
 .message {
   margin: 20px 0;
   display: flex;
@@ -12,10 +17,11 @@
 
 .bubble {
   padding: 15px;
-  border-radius: 12px;
+  // border-radius: 12px;
   position: relative;
   font-size: 0.85rem;
-  font-family: var(--font-caveat), "Yuji Mai", serif;
+  // font-family: var(--font-caveat), "Yuji Mai", serif;
+  font-family: so-lovely, "Yuji Mai", serif;
   @media screen and (max-width: 600px) {
     font-size: 0.68rem;
   }
@@ -28,8 +34,9 @@
     justify-content: flex-end;
   }
   & .bubble {
-    background-color: var.$blue;
+    background-color: $own-bg;
     text-align: left;
+    color: $own-text;
     &::before {
       content: "";
       position: absolute;
@@ -39,7 +46,7 @@
       height: 0;
       border: solid 10px;
       transform: rotate(20deg);
-      border-color: var.$blue var.$blue transparent transparent;
+      border-color: $own-bg $own-bg transparent transparent;
     }
   }
   & .text {
@@ -51,8 +58,8 @@
 .partner {
   text-align: left;
   & .bubble {
-    background-color: var.$white;
-    color: var.$black;
+    background-color: $partner-bg;
+    color: $partner-text;
     margin-top: 0;
     margin-left: 60px;
     &::before {
@@ -64,7 +71,7 @@
       height: 0;
       border: solid 10px;
       transform: rotate(-13deg);
-      border-color: var.$white transparent transparent var.$white;
+      border-color: $partner-bg transparent transparent $partner-bg;
     }
   }
   & .text {

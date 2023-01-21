@@ -5,6 +5,8 @@ import styles from "@/styles/pages/Start.module.scss";
 import { usePage } from "@/hooks/usePage";
 import Button from "@/components/button";
 import Image from "next/image";
+import { logEvent } from "firebase/analytics";
+import { analytics } from "@/firebase";
 
 const Start = memo(function StartMemo() {
   const { toLogin, toRegist } = usePage();
@@ -13,6 +15,10 @@ const Start = memo(function StartMemo() {
     document.body.classList.remove("pace-done");
     toMove();
   };
+
+  useEffect(() => {
+    logEvent(analytics, "start_page_rendering");
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -23,7 +29,10 @@ const Start = memo(function StartMemo() {
           color="primary"
           variant="contained"
           rounded
-          onClick={() => removeHomeClass(toRegist)}
+          onClick={() => {
+            removeHomeClass(toRegist);
+            logEvent(analytics, "start_getStarted_clicked");
+          }}
           // onClick={toRegist}
           height="50px"
           width="150px"
@@ -34,7 +43,10 @@ const Start = memo(function StartMemo() {
           type="button"
           color="transparent"
           variant="filled"
-          onClick={() => removeHomeClass(toLogin)}
+          onClick={() => {
+            removeHomeClass(toLogin);
+            logEvent(analytics, "start_signIn_clicked");
+          }}
           // onClick={toLogin}
           height="30px"
           width="150px"

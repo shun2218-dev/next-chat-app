@@ -1,0 +1,32 @@
+/*
+ * The Typekit service used to deliver this font or fonts for use on websites
+ * is provided by Adobe and is subject to these Terms of Use
+ * http://www.adobe.com/products/eulas/tou_typekit. For font license
+ * information, see the list below.
+ *
+ * so-lovely:
+ *   - http://typekit.com/eulas/00000000000000007735f8a2
+ *
+ * © 2009-2022 Adobe Systems Incorporated. All Rights Reserved.
+ */
+/*{"last_published":"2023-01-20 05:19:44 UTC"}*/
+
+@import url("https://p.typekit.net/p.css?s=1&k=ypr3cwo&ht=tk&f=49382&a=97704472&app=typekit&e=css");
+
+@font-face {
+  font-family: "so-lovely";
+  src: url("https://use.typekit.net/af/a4ddd3/00000000000000007735f8a2/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3")
+      format("woff2"),
+    url("https://use.typekit.net/af/a4ddd3/00000000000000007735f8a2/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3")
+      format("woff"),
+    url("https://use.typekit.net/af/a4ddd3/00000000000000007735f8a2/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3")
+      format("opentype");
+  font-display: auto;
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: normal;
+}
+
+.tk-so-lovely {
+  font-family: "so-lovely", sans-serif;
+}

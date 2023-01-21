@@ -5,7 +5,7 @@ import { Icon } from "@/types/Icon";
 const SendIcon: FC<Icon> = ({ title = false }) => {
   return (
     <svg
-      className={` ${title && styles.title} ${styles.send}`}
+      className={` ${title ? styles.title : ""} ${styles.send}`}
       fill="currentColor"
       viewBox="0 0 20 20"
       xmlns="http://www.w3.org/2000/svg"
