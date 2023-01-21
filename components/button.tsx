@@ -7,7 +7,7 @@ type Props = {
   width?: string;
   height?: string;
   margin?: string;
-  children: string;
+  children: string | ReactNode;
   onClick?: () => void;
   color: "primary" | "transparent" | "error" | "success";
   variant?: "filled" | "outlined" | "contained";
