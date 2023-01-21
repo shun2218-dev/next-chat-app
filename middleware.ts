@@ -2,8 +2,9 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { decodeBase64 } from "./lib/buffer";
 
+const matcher = ["/", "/start", "/login", "/regist", "/reset"];
 export const config = {
-  matcher: ["/"],
+  matcher,
 };
 
 export function middleware(req: NextRequest) {
