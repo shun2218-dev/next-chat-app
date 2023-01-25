@@ -7,12 +7,12 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import Image from "next/image";
 import { useAuthUser } from "@/hooks/useAuthUser";
 import { usePage } from "hooks/usePage";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Skeleton } from "@mui/material";
 import styles from "@/styles/components/Avatar.module.scss";
-import Image from "next/image";
 
 type Props = {
   size?: number;

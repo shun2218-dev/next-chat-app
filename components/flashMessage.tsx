@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 // import { Alert, AlertTitle } from "@mui/material";
 import { NavigationState } from "@/types/NavigationState";
-import styles from "@/styles/components/FlashMessage.module.scss";
+// import styles from "@/styles/components/FlashMessage.module.scss";
 
 const FlashMessage: FC<NavigationState> = ({ status, title, text, strong }) => {
   return (

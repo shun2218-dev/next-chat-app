@@ -15,6 +15,12 @@ export const getAllUsersInfo = async () => {
   return usersSnapshot.docs;
 };
 
+export const getUserIds = async () => {
+  const docs = await getAllUsersInfo();
+  const ids = docs.map((doc) => doc.id);
+  return ids;
+};
+
 export const getMemberInfo = async (groupid: string, from: string) => {
   const memberRef = doc(db, "groups", groupid, "members", from);
   const docSnap = await getDoc(memberRef);

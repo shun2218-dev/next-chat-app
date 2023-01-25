@@ -6,8 +6,7 @@ import React, {
   useCallback,
   useState,
 } from "react";
-import styles from "@/styles/components/Modal.module.scss";
-import utilStyles from "@/styles/utils/utils.module.scss";
+import Image from "next/image";
 import { informationMessage } from "@/utils/infomationMessage";
 import { getUserInfo } from "@/utils/getUserInfo";
 import { db } from "@/firebase";
@@ -17,7 +16,9 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import Button from "./button";
 import Modal from "./modal";
-import Image from "next/image";
+
+import utilStyles from "@/styles/utils/utils.module.scss";
+import styles from "@/styles/components/Modal.module.scss";
 
 const InviteModal: FC<CustomModal> = memo(function InviteModalMemo({
   params,

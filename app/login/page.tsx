@@ -1,22 +1,23 @@
 "use client";
 import React, { memo, FormEvent, useEffect, useRef } from "react";
 
+import Form from "@/components/form";
+import Input from "@/components/input";
+import Button from "@/components/button";
+import SignInIcon from "@/icons/signInIcon";
+import LockIcon from "@/icons/lockIcon";
+// import FlashMessage from "@/components/flashMessage";
+
 import styles from "@/styles/pages/Login.module.scss";
 import { usePage } from "@/hooks/usePage";
 import { useSignIn } from "@/hooks/useSignIn";
 // import { useFlashMessage } from "@/hooks/useFlashMessage";
 
-import Form from "@/components/form";
-import Input from "@/components/input";
-import Button from "@/components/button";
-// import FlashMessage from "@/components/flashMessage";
-import SignInIcon from "@/icons/signInIcon";
-import LockIcon from "@/icons/lockIcon";
 import { useAuthUser } from "@/hooks/useAuthUser";
 
 const Login = memo(function LoginMemo() {
   const { authUser } = useAuthUser();
-  const { toRegist, toReset, toHome } = usePage();
+  const { toRegist, toReset, toUser } = usePage();
   const { signIn, loading, error } = useSignIn();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -34,9 +35,9 @@ const Login = memo(function LoginMemo() {
 
   useEffect(() => {
     if (authUser?.uid) {
-      toHome(authUser.uid);
+      toUser(authUser.uid);
     }
-  }, [authUser?.uid, toHome]);
+  }, [authUser?.uid, toUser]);
 
   return (
     <>

@@ -1,15 +1,16 @@
 import React, { useState, useEffect, FC, memo } from "react";
+import { useSmoothScroll } from "hooks/useSmoothScroll";
+import { useAuthUser } from "@/hooks/useAuthUser";
 import { Skeleton } from "@mui/material";
 import { formatTime } from "@/utils/formatTime";
 import { getUserInfo } from "@/utils/getUserInfo";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import styles from "@/styles/components/ChatMessage.module.scss";
 import { Message } from "@/types/Message";
 
 import Avatar from "./avatar";
 import InfoMessage from "./infoMessage";
-import { useSmoothScroll } from "hooks/useSmoothScroll";
-import { useAuthUser } from "@/hooks/useAuthUser";
+
+import styles from "@/styles/components/ChatMessage.module.scss";
 
 type Info = {
   displayName: string;

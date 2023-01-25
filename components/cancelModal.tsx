@@ -1,7 +1,6 @@
 import React, { FC, memo, useEffect, useState } from "react";
 import { db } from "@/firebase";
 import { deleteDoc, doc, DocumentData } from "firebase/firestore";
-import styles from "@/styles/components/Modal.module.scss";
 import { getUserInfo } from "@/utils/getUserInfo";
 import { informationMessage } from "@/utils/infomationMessage";
 import { CustomModal } from "@/types/CustomModal";
@@ -9,6 +8,8 @@ import { CustomModal } from "@/types/CustomModal";
 import Button from "./button";
 import Modal from "./modal";
 import Avatar from "./avatar";
+
+import styles from "@/styles/components/Modal.module.scss";
 
 const CancelModal: FC<CustomModal> = memo(function CancelModalMemo({
   params,

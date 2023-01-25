@@ -2,13 +2,12 @@
 import React, { memo, FormEvent, useRef } from "react";
 import { usePage } from "@/hooks/usePage";
 import { usePasswordReset } from "@/hooks/usePasswordReset";
-import dynamic from "next/dynamic";
 
-const Button = dynamic(() => import("@/components/button"));
-const Form = dynamic(() => import("@/components/form"));
-const Input = dynamic(() => import("@/components/input"));
-const MailIcon = dynamic(() => import("@/icons/mailIcon"));
-const ResetIcon = dynamic(() => import("@/icons/resetIcon"));
+import Button from "@/components/button";
+import Form from "@/components/form";
+import Input from "@/components/input";
+import MailIcon from "@/icons/mailIcon";
+import ResetIcon from "@/icons/resetIcon";
 
 const Reset = memo(function ResetMemo() {
   const { toLogin } = usePage();

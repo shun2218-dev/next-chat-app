@@ -46,7 +46,12 @@
 // }
 import { User } from "firebase/auth";
 import { create } from "zustand";
-import { subscribeWithSelector, devtools } from "zustand/middleware";
+import {
+  subscribeWithSelector,
+  devtools,
+  persist,
+  createJSONStorage,
+} from "zustand/middleware";
 
 type AuthUser = {
   uid: string;
@@ -69,12 +74,18 @@ export type AuthUserState = {
 
 export const useAuthUserStore = create(
   devtools(
-    subscribeWithSelector<AuthUserState>((set, get) => ({
-      authUser: null,
-      isLogin: () => !!get().authUser,
-      //   login: (authUser) => set({ authUser }),
-      //   logout: () => set({ authUser: null }),
-      reducer: (authUser) => set({ authUser }),
-    }))
+    persist(
+      subscribeWithSelector<AuthUserState>((set, get) => ({
+        authUser: null,
+        isLogin: () => !!get().authUser,
+        //   login: (authUser) => set({ authUser }),
+        //   logout: () => set({ authUser: null }),
+        reducer: (authUser) => set({ authUser }),
+      })),
+      {
+        name: "authUser",
+        storage: createJSONStorage(() => sessionStorage),
+      }
+    )
   )
 );

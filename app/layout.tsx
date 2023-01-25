@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const { toLogin, toHome } = usePage();
+  const { toLogin, toUser } = usePage();
   const authUser = useAuthUserStore((state) => state.authUser);
   useEffect(() => {
     const addHomeClass = () => {
@@ -33,7 +33,7 @@ export default function RootLayout({
         pathname === "/reset"
       ) {
         if (authUser !== null) {
-          toHome(authUser.uid);
+          toUser(authUser.uid);
         }
       } else {
         if (authUser === null) {
