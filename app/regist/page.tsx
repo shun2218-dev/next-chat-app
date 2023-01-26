@@ -95,8 +95,8 @@ const Regist: FC<Props> = memo(function RegistMemo({ params }) {
           <Button
             type="button"
             color="transparent"
-            onClick={toLogin}
             startIcon={<SignInIcon />}
+            href="/login"
           >
             Sign In
           </Button>

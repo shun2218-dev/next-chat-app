@@ -45,7 +45,7 @@ const Reset = memo(function ResetMemo() {
         >
           Reset Password
         </Button>
-        <Button type="button" color="transparent" onClick={toLogin}>
+        <Button type="button" color="transparent" href="/login">
           Cancel
         </Button>
       </Form>

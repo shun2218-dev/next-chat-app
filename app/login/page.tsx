@@ -14,10 +14,11 @@ import { useSignIn } from "@/hooks/useSignIn";
 // import { useFlashMessage } from "@/hooks/useFlashMessage";
 
 import { useAuthUser } from "@/hooks/useAuthUser";
+import Link from "next/link";
 
 const Login = memo(function LoginMemo() {
   const { authUser } = useAuthUser();
-  const { toRegist, toReset, toUser } = usePage();
+  const { toUser } = usePage();
   const { signIn, loading, error } = useSignIn();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -70,10 +71,10 @@ const Login = memo(function LoginMemo() {
           Sign In
         </Button>
         <div className={styles.buttonGroup}>
-          <Button type="button" color="transparent" onClick={toReset}>
+          <Button type="button" color="transparent" href="/reset">
             Forgot Password
           </Button>
-          <Button type="button" color="transparent" onClick={toRegist}>
+          <Button type="button" color="transparent" href="/regist">
             Create a New Account
           </Button>
         </div>
