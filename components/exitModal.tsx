@@ -1,6 +1,5 @@
 import React, { FC, memo, useCallback, useState } from "react";
 import { usePage } from "hooks/usePage";
-import styles from "@/styles/components/Modal.module.scss";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "@/firebase";
 import { NavigationState } from "@/types/NavigationState";
@@ -9,6 +8,8 @@ import { informationMessage } from "@/utils/infomationMessage";
 
 import Button from "./button";
 import Modal from "./modal";
+
+import styles from "@/styles/components/Modal.module.scss";
 
 const ExitModal: FC<CustomModal> = memo(function ExitModalMemo({
   params,

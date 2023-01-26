@@ -1,8 +1,12 @@
 "use client";
 import React, { ReactNode } from "react";
-import { useAuthRedirect } from "@/hooks/useAuthRedirect";
+
+// const existUser = async (uid: string) => {
+//   const ids = await getUserIds();
+//   const exist = ids.includes(uid);
+//   return exist;
+// };
 
 export default function Authlayout({ children }: { children: ReactNode }) {
-  const redirect = useAuthRedirect();
   return <>{children}</>;
 }

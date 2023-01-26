@@ -1,6 +1,5 @@
 "use client";
 import React, { memo, FC, FormEvent, useEffect, useRef } from "react";
-import styles from "@/styles/pages/Regist.module.scss";
 import { usePage } from "@/hooks/usePage";
 import { useSignUp } from "@/hooks/useSignUp";
 
@@ -12,12 +11,14 @@ import SignInIcon from "@/icons/signInIcon";
 import CheckInIcon from "@/icons/checkInIcon";
 import { PageParam } from "@/types/PageParam";
 
+import styles from "@/styles/pages/Regist.module.scss";
+
 type Props = {
   params: PageParam;
 };
 
 const Regist: FC<Props> = memo(function RegistMemo({ params }) {
-  const { toLogin, toHome } = usePage();
+  const { toLogin, toUser } = usePage();
   const { signUp, loading, error } = useSignUp();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -46,9 +47,9 @@ const Regist: FC<Props> = memo(function RegistMemo({ params }) {
   useEffect(() => {
     const id = params?.uid;
     if (id) {
-      toHome(id);
+      toUser(id);
     }
-  }, [params?.uid, toHome]);
+  }, [params?.uid, toUser]);
 
   return (
     <>

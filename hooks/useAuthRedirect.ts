@@ -3,12 +3,14 @@ import { useEffect } from "react";
 import { usePage } from "./usePage";
 
 export const useAuthRedirect = () => {
-  const { toProfile, toLogin } = usePage();
+  const { toHome, toProfile, toLogin } = usePage();
   const authUser = useAuthUserStore((state) => state.authUser);
   useEffect(() => {
-    if (authUser?.uid) {
-      if (!authUser?.displayName || !authUser.photoURL) {
-        toProfile(authUser?.uid!);
+    if (authUser !== null) {
+      if (!authUser.displayName || !authUser.photoURL) {
+        toProfile(authUser.uid);
+      } else {
+        toHome(authUser.uid);
       }
     } else {
       toLogin();
@@ -17,6 +19,7 @@ export const useAuthRedirect = () => {
     authUser?.displayName,
     authUser?.photoURL,
     authUser?.uid,
+    toHome,
     toLogin,
     toProfile,
   ]);

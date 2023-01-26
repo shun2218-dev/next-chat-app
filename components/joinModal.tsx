@@ -1,8 +1,7 @@
 import React, { FC, memo, useEffect, useState } from "react";
+import Image from "next/image";
 import { usePage } from "hooks/usePage";
 import { useAuthUser } from "@/hooks/useAuthUser";
-import styles from "@/styles/components/Modal.module.scss";
-import utilStyles from "@/styles/utils/utils.module.scss";
 import { db } from "@/firebase";
 import {
   collection,
@@ -19,7 +18,9 @@ import { CustomModal } from "@/types/CustomModal";
 
 import Modal from "./modal";
 import Button from "./button";
-import Image from "next/image";
+
+import styles from "@/styles/components/Modal.module.scss";
+import utilStyles from "@/styles/utils/utils.module.scss";
 
 const JoinModal: FC<CustomModal> = memo(function JoinModalMemo({
   params,

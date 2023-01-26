@@ -1,6 +1,7 @@
 import React, { RefObject, forwardRef } from "react";
-import styles from "@/styles/components/Input.module.scss";
 import { caveat, yujiMai } from "fonts/googleFonts";
+
+import styles from "@/styles/components/Input.module.scss";
 
 type Props = {
   type?: "text" | "email" | "password";

@@ -34,6 +34,14 @@ export const usePage = () => {
     }
   };
 
+  const toUser = (uid: string, state?: NavigationState) => {
+    if (state) {
+      router.push(`/${uid}`); //query: { ...state }
+    } else {
+      router.push(`/${uid}`);
+    }
+  };
+
   const toHome = (uid: string, state?: NavigationState) => {
     if (state) {
       router.push(`/${uid}/home`); //query: { ...state }
@@ -81,6 +89,7 @@ export const usePage = () => {
     toReset,
     toComplete,
     toProfile,
+    toUser,
     toHome,
     toPrivate,
     toPrivateRoom,

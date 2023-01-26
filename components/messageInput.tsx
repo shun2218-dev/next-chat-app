@@ -1,7 +1,8 @@
 import React, { Dispatch, FC, FormEvent, SetStateAction } from "react";
-import styles from "@/styles/components/MessageInput.module.scss";
 
 import SendIcon from "@/icons/sendIcon";
+
+import styles from "@/styles/components/MessageInput.module.scss";
 
 type Props = {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
