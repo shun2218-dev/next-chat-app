@@ -13,6 +13,7 @@ import styles from "@/styles/pages/Private.module.scss";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/firebase";
 import { useAuthUser } from "@/hooks/useAuthUser";
+import { uploadChatImage } from "@/utils/uploadChatImage";
 
 const MessageInput = dynamic(
   async () => await import("@/components/messageInput")
@@ -33,6 +34,7 @@ export default function GroupChatLayout({
     params
   );
   const [message, setMessage] = useState("");
+  const [image, setImage] = useState<File | null>(null);
   const [notHistory, setNotHistory] = useState(false);
   const { authUser } = useAuthUser();
   const [isPending, startTransition] = useTransition();
@@ -47,16 +49,18 @@ export default function GroupChatLayout({
           setLoading(true);
         });
         const groupRef = collection(db, "groups", groupid!, "messages");
-        await addDoc(groupRef, {
+        const res = await addDoc(groupRef, {
           message,
           from: uid!,
           createdAt: serverTimestamp(),
-        }).then(() => {
-          startTransition(() => {
-            setMessage("");
-          });
+          image: null,
         });
+        if (image) {
+          await uploadChatImage(res.id, groupid!, image, true);
+        }
         startTransition(() => {
+          setMessage("");
+          setImage(null);
           setLoading(false);
         });
       }
@@ -102,7 +106,9 @@ export default function GroupChatLayout({
         onSubmit={onSubmit}
         loading={isPending}
         state={message}
+        imageState={image}
         setState={setMessage}
+        setImageState={setImage}
       />
     </>
   );

@@ -34,7 +34,6 @@ const Avatar: FC<Props> = ({
   storageRef,
   profile = false,
 }) => {
-  const { toProfile } = usePage();
   const { authUser } = useAuthUser();
   const [url, setUrl] = useState<string | null>(null);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
