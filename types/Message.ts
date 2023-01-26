@@ -10,4 +10,5 @@ export type Message = {
   displayName?: string;
   to?: string;
   isLastMessage: boolean;
+  image?: null | string;
 };

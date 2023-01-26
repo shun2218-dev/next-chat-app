@@ -5,10 +5,18 @@ import MessageInput from "@/components/messageInput";
 import { useChatMessage } from "@/hooks/useChatMessage";
 import styles from "@/styles/pages/Private.module.scss";
 import isCreatedRoom from "@/utils/private/isCreatedRoom";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db } from "@/firebase";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
+import { db, storage } from "@/firebase";
 import NotFoundIcon from "@/icons/notFoundIcon";
 import { useTransition } from "react";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { uploadChatImage } from "@/utils/uploadChatImage";
 
 export default function PrivateChatLayout({
   params,
@@ -28,8 +36,10 @@ export default function PrivateChatLayout({
     setRoomExist,
   } = useChatMessage(false, params);
   const [message, setMessage] = useState("");
+  const [image, setImage] = useState<File | null>(null);
   const [notHistory, setNotHistory] = useState(false);
   const [isPending, startTransition] = useTransition();
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (uid && partnerid) {
@@ -43,18 +53,24 @@ export default function PrivateChatLayout({
       });
       if (exist) {
         const roomRef = collection(db, "rooms", `${roomid}`, "messages");
-        addDoc(roomRef, {
+        const res = await addDoc(roomRef, {
           message,
           from: uid,
           createdAt: serverTimestamp(),
+          image: null,
         });
+        if (image) {
+          await uploadChatImage(res.id, roomid, image);
+        }
       }
       startTransition(() => {
         setLoading(false);
         setMessage("");
+        setImage(null);
       });
     }
   };
+
   useEffect(() => {
     if (
       !dataLoading &&
@@ -99,7 +115,9 @@ export default function PrivateChatLayout({
         onSubmit={onSubmit}
         loading={isPending}
         state={message}
+        imageState={image}
         setState={setMessage}
+        setImageState={setImage}
       />
     </>
   );
