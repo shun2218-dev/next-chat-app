@@ -13,6 +13,7 @@ import { usePage } from "hooks/usePage";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Skeleton } from "@mui/material";
 import styles from "@/styles/components/Avatar.module.scss";
+import Link from "next/link";
 
 type Props = {
   size?: number;
@@ -91,15 +92,27 @@ const Avatar: FC<Props> = ({
             height={60}
           />
         ) : url !== null ? (
-          <Image
-            src={url}
-            alt=""
-            style={imageStyle}
-            className={`${styles.avatar} ${profile && styles.profile}`}
-            onClick={() => header && toProfile(authUser?.uid!)}
-            width={60}
-            height={60}
-          />
+          header ? (
+            <Link href={`/${authUser?.uid}/profile`}>
+              <Image
+                src={url}
+                alt=""
+                style={imageStyle}
+                className={`${styles.avatar} ${profile && styles.profile}`}
+                width={60}
+                height={60}
+              />
+            </Link>
+          ) : (
+            <Image
+              src={url}
+              alt=""
+              style={imageStyle}
+              className={`${styles.avatar} ${profile && styles.profile}`}
+              width={60}
+              height={60}
+            />
+          )
         ) : (
           <AccountCircleIcon sx={{ width: size, height: size }} />
           // <div>Account Circle</div>

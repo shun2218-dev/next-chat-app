@@ -8,6 +8,7 @@ import { usePage } from "@/hooks/usePage";
 import Form from "@/components/form";
 import Image from "next/image";
 import { PageParam } from "@/types/PageParam";
+import Link from "next/link";
 
 type Groups = {
   id: string;
@@ -47,19 +48,17 @@ const Join: FC<Props> = memo(function JoinMemo({ params }) {
       <ul className={styles.groupList}>
         {groups.length ? (
           groups.map(({ id, groupName, photoURL }) => (
-            <li
-              className={styles.group}
-              key={id}
-              onClick={() => toGroupRoom(uid!, id)}
-            >
-              <Image
-                src={photoURL}
-                alt={groupName}
-                width={60}
-                height={60}
-                className={utilStyles.avatar}
-              />
-              <p className={styles.name}>{groupName}</p>
+            <li key={id}>
+              <Link href={`/${uid}/group/${id}`} className={styles.group}>
+                <Image
+                  src={photoURL}
+                  alt={groupName}
+                  width={60}
+                  height={60}
+                  className={utilStyles.avatar}
+                />
+                <p className={styles.name}>{groupName}</p>
+              </Link>
             </li>
           ))
         ) : loading ? (
