@@ -11,6 +11,7 @@ import Avatar from "./avatar";
 import InfoMessage from "./infoMessage";
 
 import styles from "@/styles/components/ChatMessage.module.scss";
+import Image from "next/image";
 
 type Info = {
   displayName: string;
@@ -27,6 +28,7 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
   status,
   displayName,
   isLastMessage,
+  image,
 }) {
   // const { uid, partnerid, groupid } = useParams();
   const { authUser } = useAuthUser();
@@ -112,6 +114,11 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
               <p className={styles.time}>{formatTime(createdAt)}</p>
             )}
           </li>
+          {image && (
+            <li className={styles.chatImage}>
+              <Image src={image} alt="" width={200} height={150} />
+            </li>
+          )}
         </ul>
       ) : (
         <ul className={`${styles.message} ${styles.partner}`} ref={chatRef}>
@@ -137,6 +144,11 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
               // <div>loading...</div>
             )}
           </li>
+          {image && (
+            <li className={styles.chatImage}>
+              <Image src={image} alt="" width={250} height={150} />
+            </li>
+          )}
         </ul>
       )}
     </>
