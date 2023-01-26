@@ -1,5 +1,8 @@
 import React, { FC, ReactNode } from "react";
 import styles from "@/styles/components/Button.module.scss";
+import Link from "next/link";
+
+type Routes = "/start" | "/login" | "/regist" | "/reset" | string;
 
 type Props = {
   type: "button" | "submit" | "reset";
@@ -16,6 +19,7 @@ type Props = {
   startIcon?: ReactNode;
   endIcon?: ReactNode;
   header?: boolean;
+  href?: Routes;
 };
 
 const Button: FC<Props> = ({
@@ -28,11 +32,11 @@ const Button: FC<Props> = ({
   onClick,
   color = "transparent",
   variant = "filled",
-  rounded = false,
   fullWidth = false,
   startIcon,
   endIcon,
   header = false,
+  href,
 }) => {
   const switchStyles = (variant: string) => {
     switch (variant) {
@@ -87,9 +91,19 @@ const Button: FC<Props> = ({
         header ? styles.header : ""
       }`}
     >
-      {startIcon}
-      {children}
-      {endIcon}
+      {href ? (
+        <Link href={href} className={styles.buttonLink}>
+          {startIcon}
+          {children}
+          {endIcon}
+        </Link>
+      ) : (
+        <>
+          {startIcon}
+          {children}
+          {endIcon}
+        </>
+      )}
     </button>
   );
 };

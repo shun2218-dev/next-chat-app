@@ -108,6 +108,17 @@
   }
 }
 
+.buttonLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  @media screen and (max-width: 600px) {
+    font-size: 0.6rem;
+    gap: 5px;
+  }
+}
+
 .header {
   margin-left: 20px;
   @media screen and (max-width: 1000px) {

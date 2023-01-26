@@ -12,10 +12,9 @@ import ArrowTopRight from "@/icons/arrowTopRight";
 
 const Start = memo(function StartMemo() {
   const { toLogin, toRegist } = usePage();
-  const removeHomeClass = (toMove: () => void) => {
+  const removeHomeClass = () => {
     document.body.classList.remove("home");
     document.body.classList.remove("pace-done");
-    toMove();
   };
 
   return (
@@ -28,10 +27,11 @@ const Start = memo(function StartMemo() {
           variant="contained"
           rounded
           onClick={() => {
-            removeHomeClass(toRegist);
+            removeHomeClass();
           }}
           height="50px"
           width="150px"
+          href="/regist"
         >
           Get Started
         </Button>
@@ -40,10 +40,11 @@ const Start = memo(function StartMemo() {
           color="transparent"
           variant="filled"
           onClick={() => {
-            removeHomeClass(toLogin);
+            removeHomeClass();
           }}
           height="30px"
           width="150px"
+          href="/login"
         >
           Sign In &gt;
         </Button>

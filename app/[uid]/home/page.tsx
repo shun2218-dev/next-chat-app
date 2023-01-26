@@ -20,15 +20,12 @@ const Home = memo(function HomeMemo() {
       {/* {flashState && <FlashMessage {...messageState!} />} */}
       <div className={styles.cardContainer}>
         <Card
-          onClick={() => toPrivate(authUser?.uid!)}
           startIcon={<PrivateIcon title />}
+          href={`/${authUser?.uid}/private`}
         >
           Private Chat
         </Card>
-        <Card
-          onClick={() => toGroup(authUser?.uid!)}
-          startIcon={<GroupIcon title />}
-        >
+        <Card startIcon={<GroupIcon title />} href={`/${authUser?.uid}/group`}>
           Group Chat
         </Card>
       </div>
