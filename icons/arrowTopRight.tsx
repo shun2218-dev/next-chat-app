@@ -4,9 +4,11 @@ import styles from "@/styles/icons/Icon.module.scss";
 const ArrowTopRight = ({ title = false }: { title?: boolean }) => {
   return (
     <svg
-      className={`${styles.icon} ${title && styles.title} ${
-        styles.arrowTopRight
-      }`}
+      className={[
+        styles.icon,
+        title ? styles.title : "",
+        styles.arrowTopRight,
+      ].join(" ")}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"

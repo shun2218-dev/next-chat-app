@@ -1,4 +1,11 @@
-import React, { useEffect, useCallback, useState, memo, FC } from "react";
+import React, {
+  useEffect,
+  useCallback,
+  useState,
+  useMemo,
+  memo,
+  FC,
+} from "react";
 import Image from "next/image";
 import { useAuthUser } from "@/hooks/useAuthUser";
 import { usePage } from "hooks/usePage";
@@ -67,6 +74,10 @@ const UserList: FC<Props> = memo(function UserListMemo({
     [joinOpen, exitOpen, inviteOpen, cancelOpen]
   );
 
+  const isGroupActiveStyle = useMemo(
+    () => (group ? styles.active : ""),
+    [group]
+  );
   const isNotMember = useCallback(
     (snapshot: QuerySnapshot<DocumentData>) => {
       const isMember = snapshot.docs
@@ -75,6 +86,11 @@ const UserList: FC<Props> = memo(function UserListMemo({
       return !isMember;
     },
     [authUser?.uid]
+  );
+
+  const isGroupStyle: string = useMemo(
+    () => (roomId && group ? styles.group : ""),
+    [roomId, group]
   );
 
   useEffect(() => {
@@ -164,18 +180,16 @@ const UserList: FC<Props> = memo(function UserListMemo({
           {group ? "Members" : "Users"} {`(${users.length})`}
         </p>
         <ul className={styles.memberList}>
-          <ul
-            className={`${styles.userList} ${
-              roomId && group ? styles.group : ""
-            }`}
-          >
+          <ul className={[styles.userList, isGroupStyle].join(" ")}>
             {users.length ? (
               users.map((user) => (
                 <li
                   key={user.id}
-                  className={`${styles.user} ${
-                    roomId === user.id ? styles.active : styles.passive
-                  } ${group ? styles.active : ""}`}
+                  className={[
+                    styles.user,
+                    roomId === user.id ? styles.active : styles.passive,
+                    isGroupActiveStyle,
+                  ].join(" ")}
                   onClick={() => {
                     !group && toPrivateRoom(authUser?.uid!, user.id);
                   }}
@@ -214,12 +228,12 @@ const UserList: FC<Props> = memo(function UserListMemo({
               <li
                 className={styles.listTitle}
               >{`Invitation (${inviteLists.length})`}</li>
-              <ul className={`${styles.userList} ${styles.invite}`}>
+              <ul className={[styles.userList, styles.invite].join(" ")}>
                 {inviteLists.length ? (
                   inviteLists.map((inviteList) => (
                     <li
                       key={inviteList.id}
-                      className={`${styles.user}`}
+                      className={styles.user}
                       onClick={() => {
                         modalToggle("cancel");
                         setCancelId(inviteList.id);
@@ -236,7 +250,9 @@ const UserList: FC<Props> = memo(function UserListMemo({
                     </li>
                   ))
                 ) : (
-                  <div className={`${utilStyles.textCenter}  ${styles.nobody}`}>
+                  <div
+                    className={[utilStyles.textCenter, styles.nobody].join(" ")}
+                  >
                     Nobody invited
                   </div>
                 )}

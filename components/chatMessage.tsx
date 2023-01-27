@@ -107,7 +107,7 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
           isLastMessage={isLastMessage}
         />
       ) : from === authUser?.uid ? (
-        <ul className={`${styles.message} ${styles.own}`} ref={chatRef}>
+        <ul className={[styles.message, styles.own].join(" ")} ref={chatRef}>
           <li className={styles.text}>
             <p className={styles.bubble}>{message}</p>
             {createdAt !== null && (
@@ -121,7 +121,10 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
           )}
         </ul>
       ) : (
-        <ul className={`${styles.message} ${styles.partner}`} ref={chatRef}>
+        <ul
+          className={[styles.message, styles.partner].join(" ")}
+          ref={chatRef}
+        >
           <li className={styles.profile}>
             {userInfo.photoURL ? (
               <Avatar size={40} storageRef={userInfo.photoURL} chat />
