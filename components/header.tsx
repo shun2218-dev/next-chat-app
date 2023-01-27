@@ -1,4 +1,4 @@
-import React, { FC, memo, ReactNode, useTransition } from "react";
+import React, { FC, memo, ReactNode, useTransition, useMemo } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
@@ -22,15 +22,15 @@ const Header: FC<Props> = memo(function HeaderMemo({ children }) {
   const authUser = useAuthUserStore((state) => state.authUser);
   const [isPending, startTransition] = useTransition();
   const { signOut, error, loading } = useSignOut();
+  const isLoginStyle = useMemo(
+    () => (authUser?.uid ? styles.login : styles.notLogin),
+    [authUser?.uid]
+  );
 
   return (
     <>
       {pathname !== "/start" && pathname !== "/" && (
-        <header
-          className={`${styles.header} ${
-            authUser?.uid ? styles.login : styles.notLogin
-          }`}
-        >
+        <header className={[styles.header, isLoginStyle].join(" ")}>
           {/* after log in switch toHome */}
           <HeaderLogo />
 

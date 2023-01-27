@@ -6,10 +6,10 @@ import React, {
   CSSProperties,
   useEffect,
   useState,
+  useMemo,
 } from "react";
 import Image from "next/image";
 import { useAuthUser } from "@/hooks/useAuthUser";
-import { usePage } from "hooks/usePage";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Skeleton } from "@mui/material";
 import styles from "@/styles/components/Avatar.module.scss";
@@ -44,6 +44,10 @@ const Avatar: FC<Props> = ({
       }
     }
   };
+  const avatarImageClasses = useMemo(
+    () => [styles.avatar, profile && styles.profile].join(" "),
+    [profile]
+  );
 
   useEffect(() => {
     if (storageRef) {
@@ -73,7 +77,7 @@ const Avatar: FC<Props> = ({
               src={storageRef}
               alt=""
               style={imageStyle}
-              className={`${styles.avatar} ${profile && styles.profile}`}
+              className={[styles.avatar, profile && styles.profile].join(" ")}
               width={60}
               height={60}
             />
@@ -86,7 +90,7 @@ const Avatar: FC<Props> = ({
             src={URL.createObjectURL(state)}
             alt=""
             style={imageStyle}
-            className={`${styles.avatar} ${profile && styles.profile}`}
+            className={avatarImageClasses}
             width={60}
             height={60}
           />
@@ -97,7 +101,7 @@ const Avatar: FC<Props> = ({
                 src={url}
                 alt=""
                 style={imageStyle}
-                className={`${styles.avatar} ${profile && styles.profile}`}
+                className={avatarImageClasses}
                 width={60}
                 height={60}
               />
@@ -107,7 +111,7 @@ const Avatar: FC<Props> = ({
               src={url}
               alt=""
               style={imageStyle}
-              className={`${styles.avatar} ${profile && styles.profile}`}
+              className={avatarImageClasses}
               width={60}
               height={60}
             />

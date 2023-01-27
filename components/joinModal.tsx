@@ -98,7 +98,7 @@ const JoinModal: FC<CustomModal> = memo(function JoinModalMemo({
             </div>
           </>
         )}
-        <div className={`${styles.modalButton} ${styles.row}`}>
+        <div className={[styles.modalButton, styles.row].join(" ")}>
           <Button
             type="button"
             color="primary"

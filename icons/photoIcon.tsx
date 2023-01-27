@@ -10,9 +10,11 @@ const PhotoIcon: FC<Icon> = ({ title = false, filled = false }) => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`${styles.icon} ${title ? styles.title : ""} ${
-        filled ? styles.filled : ""
-      }`}
+      className={[
+        styles.icon,
+        title ? styles.title : "",
+        filled ? styles.filled : "",
+      ].join(" ")}
     >
       <path
         strokeLinecap="round"
