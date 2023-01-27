@@ -47,7 +47,7 @@ const ExitModal: FC<CustomModal> = memo(function ExitModalMemo({
           type="button"
           color="primary"
           variant="contained"
-          onClick={() => exitGroup(groupid![0], uid![0])}
+          onClick={() => exitGroup(groupid!, uid!)}
           fullWidth
           disabled={loading}
         >
