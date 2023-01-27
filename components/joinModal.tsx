@@ -103,12 +103,7 @@ const JoinModal: FC<CustomModal> = memo(function JoinModalMemo({
             type="button"
             color="primary"
             variant="contained"
-            onClick={() =>
-              joinGroup(
-                typeof groupid! === "string" ? groupid : groupid![0],
-                typeof uid! === "string" ? uid : uid![0]
-              )
-            }
+            onClick={() => joinGroup(groupid!, uid!)}
             fullWidth
             disabled={profileEmpty}
           >
@@ -118,7 +113,7 @@ const JoinModal: FC<CustomModal> = memo(function JoinModalMemo({
             type="button"
             color="transparent"
             variant="outlined"
-            onClick={() => toJoin(typeof uid! === "string" ? uid : uid![0])}
+            onClick={() => toJoin(uid!)}
             fullWidth
           >
             No
