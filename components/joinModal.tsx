@@ -86,7 +86,7 @@ const JoinModal: FC<CustomModal> = memo(function JoinModalMemo({
               alt="profile image"
               width={60}
               height={60}
-              className={utilStyles.avatar}
+              className={[utilStyles.avatar, styles.groupImage].join(" ")}
             />
             <div>
               <p className={styles.contentTitle}>Group name</p>
