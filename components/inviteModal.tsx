@@ -77,12 +77,12 @@ const InviteModal: FC<CustomModal> = memo(function InviteModalMemo({
 
   return (
     <Modal title="Select the member to invite" open={open} onSubmit={onSubmit}>
-      <ul className={`${styles.userList} ${styles.invite}`}>
+      <ul className={[styles.userList, styles.invite].join(" ")}>
         {inviteUsers!.length ? (
           inviteUsers!.map((user) => (
             <label key={user.id} className={styles.label}>
               <li
-                className={`${styles.user} ${styles.passive} `}
+                className={[styles.user, styles.passive].join(" ")}
                 onClick={() => {}}
               >
                 <input
@@ -124,7 +124,7 @@ const InviteModal: FC<CustomModal> = memo(function InviteModalMemo({
           <div>...loading</div>
         )}
       </ul>
-      <div className={`${styles.modalButton}`}>
+      <div className={styles.modalButton}>
         <Button
           type="submit"
           color="primary"

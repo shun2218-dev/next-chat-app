@@ -5,7 +5,7 @@ import { Icon } from "@/types/Icon";
 const SignOutIcon: FC<Icon> = ({ title = false }) => {
   return (
     <svg
-      className={`${styles.icon} ${title ? styles.title : ""}`}
+      className={[styles.icon, title ? styles.title : ""].join(" ")}
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"

@@ -42,7 +42,7 @@ const ExitModal: FC<CustomModal> = memo(function ExitModalMemo({
 
   return (
     <Modal title="Exit this group?" open={open}>
-      <div className={`${styles.modalButton} ${styles.row}`}>
+      <div className={[styles.modalButton, styles.row].join(" ")}>
         <Button
           type="button"
           color="primary"

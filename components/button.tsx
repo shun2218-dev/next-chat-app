@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC, ReactNode, useMemo } from "react";
 import styles from "@/styles/components/Button.module.scss";
 import Link from "next/link";
 
@@ -85,11 +85,13 @@ const Button: FC<Props> = ({
         margin: `${margin}`,
         // borderRadius: `${rounded ? "24px" : "6px"}`,
       }}
-      className={`${switchStyles(variant)} ${switchBgColor(
-        color
-      )} ${switchWidth(fullWidth)} ${styles.button} ${
-        header ? styles.header : ""
-      }`}
+      className={[
+        switchStyles(variant),
+        switchBgColor(color),
+        switchWidth(fullWidth),
+        styles.button,
+        header ? styles.header : "",
+      ].join(" ")}
     >
       {href ? (
         <Link href={href} className={styles.buttonLink}>
