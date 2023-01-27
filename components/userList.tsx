@@ -9,6 +9,7 @@ import {
   DocumentData,
   QueryDocumentSnapshot,
   onSnapshot,
+  QuerySnapshot,
 } from "firebase/firestore";
 import { db } from "@/firebase";
 
@@ -67,8 +68,11 @@ const UserList: FC<Props> = memo(function UserListMemo({
   );
 
   const isNotMember = useCallback(
-    (doc: QueryDocumentSnapshot<DocumentData>) => {
-      doc.id !== authUser?.uid;
+    (snapshot: QuerySnapshot<DocumentData>) => {
+      const isMember = snapshot.docs
+        .map(({ id }) => id)
+        .includes(authUser?.uid!);
+      return !isMember;
     },
     [authUser?.uid]
   );
@@ -82,11 +86,17 @@ const UserList: FC<Props> = memo(function UserListMemo({
     const unSubUser = onSnapshot(userRef, (snapshot) => {
       setAllUsers([...snapshot.docs.map((doc) => doc)]);
     });
+    return () => {
+      unSubUser();
+    };
+  }, []);
 
+  useEffect(() => {
+    const userRef = collection(db, "users");
     if (group && roomId) {
-      const groupRef = collection(db, "groups", roomId, "members");
-      const unSub = onSnapshot(groupRef, (snapshot) => {
-        if (snapshot.docs.every(isNotMember) && !joinOpen) {
+      const groupMembersRef = collection(db, "groups", roomId, "members");
+      const unSub = onSnapshot(groupMembersRef, (snapshot) => {
+        if (isNotMember(snapshot) && !joinOpen) {
           setJoinOpen(true);
         } else {
           setJoinOpen(false);
@@ -96,7 +106,6 @@ const UserList: FC<Props> = memo(function UserListMemo({
       });
       return () => {
         unSub();
-        unSubUser();
       };
     } else {
       const unSub = onSnapshot(userRef, (snapshot) => {
@@ -105,17 +114,18 @@ const UserList: FC<Props> = memo(function UserListMemo({
       });
       return () => {
         unSub();
-        unSubUser();
       };
     }
-  }, [authUser?.uid, group, roomId, isNotMember, joinOpen]);
+  }, [group, roomId]);
 
   useEffect(() => {
-    const members = allUsers.filter((user) => ids.includes(user.id) === false);
-    const invited = members.filter(
+    const notMembers = allUsers.filter(
+      (user) => ids.includes(user.id) === false
+    );
+    const notInvited = notMembers.filter(
       (member) => inviteIds.includes(member.id) === false
     );
-    setInviteUsers([...invited]);
+    setInviteUsers([...notInvited]);
   }, [allUsers]);
 
   useEffect(() => {

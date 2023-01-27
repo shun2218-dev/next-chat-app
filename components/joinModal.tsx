@@ -68,11 +68,7 @@ const JoinModal: FC<CustomModal> = memo(function JoinModalMemo({
 
   useEffect(() => {
     if (groupid) {
-      const groupRef = doc(
-        db,
-        "groups",
-        typeof groupid! === "string" ? groupid : groupid[0]
-      );
+      const groupRef = doc(db, "groups", groupid);
       getDoc(groupRef).then((docSnapshot) => {
         if (docSnapshot.exists()) {
           setGroupInfo({ ...docSnapshot.data() });
