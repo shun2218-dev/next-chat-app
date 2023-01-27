@@ -33,19 +33,13 @@ const CancelModal: FC<CustomModal> = memo(function CancelModalMemo({
 
   const onSubmit = async () => {
     if (cancelId && setCancelId) {
-      const gid = typeof groupid! === "string" ? groupid : groupid![0];
-      const inviteRef = doc(db, "groups", gid, "invitations", cancelId);
+      const inviteRef = doc(db, "groups", groupid!, "invitations", cancelId);
       setLoading(true);
       await deleteDoc(inviteRef)
         .then(onClose)
         .then(
           async () =>
-            await informationMessage(
-              typeof uid! === "string" ? uid : uid![0],
-              gid,
-              "canceled",
-              cancelId
-            )
+            await informationMessage(uid!, groupid!, "canceled", cancelId)
         );
     }
   };

@@ -56,35 +56,28 @@ export const useChatMessage = (
     useEffect(() => {
       if (partnerid) {
         setDataLoading(true);
-        const userRef = collection(
-          db,
-          "users",
-          typeof uid! === "string" ? uid : uid![0],
-          "rooms"
-        );
+        const userRef = collection(db, "users", uid!, "rooms");
         const unSubUser = onSnapshot(userRef, (snapshot) => {
           const room = snapshot.docs.filter((doc) => doc.id === partnerid);
           if (room.length && uid) {
             const roomDocId = room[0].id;
-            getRoomId(typeof uid === "string" ? uid : uid[0], roomDocId).then(
-              (roomid) => {
-                setChatRoom(roomid);
-                const messageRef = query(
-                  collection(db, "rooms", `${roomid}`, "messages"),
-                  orderBy("createdAt", "asc")
-                );
-                getDocs(messageRef).then((snapshot) => {
-                  setChatMessages([
-                    ...snapshot.docs.map((doc) => {
-                      return {
-                        id: doc.id,
-                        ...doc.data(),
-                      } as Message;
-                    }),
-                  ]);
-                });
-              }
-            );
+            getRoomId(uid, roomDocId).then((roomid) => {
+              setChatRoom(roomid);
+              const messageRef = query(
+                collection(db, "rooms", `${roomid}`, "messages"),
+                orderBy("createdAt", "asc")
+              );
+              getDocs(messageRef).then((snapshot) => {
+                setChatMessages([
+                  ...snapshot.docs.map((doc) => {
+                    return {
+                      id: doc.id,
+                      ...doc.data(),
+                    } as Message;
+                  }),
+                ]);
+              });
+            });
             setDataLoading(false);
           } else {
             setDataLoading(false);
@@ -108,12 +101,7 @@ export const useChatMessage = (
     }, [pageParams]);
   } else {
     const q = query(
-      collection(
-        db,
-        "groups",
-        typeof groupid! === "string" ? groupid : groupid![0],
-        "messages"
-      ),
+      collection(db, "groups", groupid!, "messages"),
       ...messageOptions
     );
     useEffect(() => {
