@@ -149,7 +149,14 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
           </li>
           {image && (
             <li className={styles.chatImage}>
-              <Image src={image} alt="" width={250} height={150} />
+              <Image
+                src={image}
+                alt=""
+                width={250}
+                height={150}
+                placeholder="blur"
+                priority={true}
+              />
             </li>
           )}
         </ul>

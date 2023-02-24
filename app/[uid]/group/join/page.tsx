@@ -56,6 +56,7 @@ const Join: FC<Props> = memo(function JoinMemo({ params }) {
                   width={60}
                   height={60}
                   className={utilStyles.avatar}
+                  placeholder="blur"
                 />
                 <p className={styles.name}>{groupName}</p>
               </Link>
