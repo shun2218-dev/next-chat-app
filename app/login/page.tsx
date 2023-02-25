@@ -1,20 +1,19 @@
-"use client";
-import React, { memo, FormEvent, useEffect, useRef } from "react";
+'use client';
+import React, { memo, FormEvent, useEffect, useRef } from 'react';
 
-import Form from "@/components/form";
-import Input from "@/components/input";
-import Button from "@/components/button";
-import SignInIcon from "@/icons/signInIcon";
-import LockIcon from "@/icons/lockIcon";
+import Form from '@/components/form';
+import Input from '@/components/input';
+import Button from '@/components/button';
+import SignInIcon from '@/icons/signInIcon';
+import LockIcon from '@/icons/lockIcon';
 // import FlashMessage from "@/components/flashMessage";
 
-import styles from "@/styles/pages/Login.module.scss";
-import { usePage } from "@/hooks/usePage";
-import { useSignIn } from "@/hooks/useSignIn";
+import styles from '@/styles/pages/Login.module.scss';
+import { usePage } from '@/hooks/usePage';
+import { useSignIn } from '@/hooks/useSignIn';
 // import { useFlashMessage } from "@/hooks/useFlashMessage";
 
-import { useAuthUser } from "@/hooks/useAuthUser";
-import Link from "next/link";
+import { useAuthUser } from '@/hooks/useAuthUser';
 
 const Login = memo(function LoginMemo() {
   const { authUser } = useAuthUser();
@@ -35,19 +34,24 @@ const Login = memo(function LoginMemo() {
   };
 
   useEffect(() => {
-    if (authUser?.uid) {
+    if (authUser) {
       toUser(authUser.uid);
     }
-  }, [authUser?.uid, toUser]);
+  }, [authUser, toUser]);
 
   return (
     <>
       {/* {flashState && <FlashMessage {...messageState!} />} */}
-      <Form title="Sign In" onSubmit={onSubmit} startIcon={<LockIcon title />}>
+      <Form
+        title="Sign In"
+        onSubmit={onSubmit}
+        startIcon={<LockIcon title />}
+        testid="login-form"
+      >
         <Input
           label="Email"
           type="email"
-          placeholder="Your Email"
+          placeholder="Email"
           required
           ref={emailRef}
         />
@@ -74,7 +78,12 @@ const Login = memo(function LoginMemo() {
           <Button type="button" color="transparent" href="/reset">
             Forgot Password
           </Button>
-          <Button type="button" color="transparent" href="/regist">
+          <Button
+            type="button"
+            color="transparent"
+            href="/regist"
+            testid="regist-login"
+          >
             Create a New Account
           </Button>
         </div>

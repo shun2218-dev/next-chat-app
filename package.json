@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress:open": "cypress open",
+    "cypress:env": "cypress open --config-file cypress.dev.config.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -31,6 +33,7 @@
     "zustand": "^4.3.2"
   },
   "devDependencies": {
+    "cypress": "^12.6.0",
     "firebase": "^9.13.0",
     "turbo": "^1.6.3"
   }

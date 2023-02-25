@@ -1,17 +1,17 @@
-"use client";
-import React, { memo, FC, FormEvent, useEffect, useRef } from "react";
-import { usePage } from "@/hooks/usePage";
-import { useSignUp } from "@/hooks/useSignUp";
+'use client';
+import React, { memo, FC, FormEvent, useEffect, useRef } from 'react';
+import { usePage } from '@/hooks/usePage';
+import { useSignUp } from '@/hooks/useSignUp';
 
-import Button from "@/components/button";
-import Form from "@/components/form";
-import Input from "@/components/input";
-import SignUpIcon from "@/icons/signUpIcon";
-import SignInIcon from "@/icons/signInIcon";
-import CheckInIcon from "@/icons/checkInIcon";
-import { PageParam } from "@/types/PageParam";
+import Button from '@/components/button';
+import Form from '@/components/form';
+import Input from '@/components/input';
+import SignUpIcon from '@/icons/signUpIcon';
+import SignInIcon from '@/icons/signInIcon';
+import CheckInIcon from '@/icons/checkInIcon';
+import { PageParam } from '@/types/PageParam';
 
-import styles from "@/styles/pages/Regist.module.scss";
+import styles from '@/styles/pages/Regist.module.scss';
 
 type Props = {
   params: PageParam;
@@ -57,11 +57,12 @@ const Regist: FC<Props> = memo(function RegistMemo({ params }) {
         title="Sign Up"
         onSubmit={onSubmit}
         startIcon={<SignUpIcon title />}
+        testid="regist-form"
       >
         <Input
           label="Email"
           type="email"
-          placeholder="Your Email"
+          placeholder="Email"
           required
           ref={emailRef}
         />
