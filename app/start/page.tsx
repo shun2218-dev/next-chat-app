@@ -1,20 +1,20 @@
-"use client";
-import React, { memo, useEffect } from "react";
-import logo from "public/logo.svg";
-import reactLogo from "public/logo_react.svg";
-import styles from "@/styles/pages/Start.module.scss";
-import { usePage } from "@/hooks/usePage";
-import Button from "@/components/button";
-import Image from "next/image";
-import { analytics } from "@/firebase";
-import Link from "next/link";
-import ArrowTopRight from "@/icons/arrowTopRight";
+'use client';
+import React, { memo, useEffect } from 'react';
+import logo from 'public/logo.svg';
+import reactLogo from 'public/logo_react.svg';
+import styles from '@/styles/pages/Start.module.scss';
+import { usePage } from '@/hooks/usePage';
+import Button from '@/components/button';
+import Image from 'next/image';
+import { analytics } from '@/firebase';
+import Link from 'next/link';
+import ArrowTopRight from '@/icons/arrowTopRight';
 
 const Start = memo(function StartMemo() {
   const { toLogin, toRegist } = usePage();
   const removeHomeClass = () => {
-    document.body.classList.remove("home");
-    document.body.classList.remove("pace-done");
+    document.body.classList.remove('home');
+    document.body.classList.remove('pace-done');
   };
 
   return (
@@ -22,6 +22,7 @@ const Start = memo(function StartMemo() {
       <Image src={logo} alt="logo" className={styles.logo} priority />
       <div className={styles.buttonGroup}>
         <Button
+          testid="regist-start"
           type="button"
           color="primary"
           variant="contained"
@@ -36,6 +37,7 @@ const Start = memo(function StartMemo() {
           Get Started
         </Button>
         <Button
+          testid="signin-start"
           type="button"
           color="transparent"
           variant="filled"
@@ -58,7 +60,7 @@ const Start = memo(function StartMemo() {
         endIcon={<ArrowTopRight />}
       >
         <Link
-          href={"https://chat-app-4a684.web.app/"}
+          href={'https://chat-app-4a684.web.app/'}
           target="_blank"
           rel="noopner"
         >

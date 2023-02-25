@@ -1,17 +1,17 @@
-import React, { useState, useEffect, FC, memo } from "react";
-import { useSmoothScroll } from "hooks/useSmoothScroll";
-import { useAuthUser } from "@/hooks/useAuthUser";
-import { Skeleton } from "@mui/material";
-import { formatTime } from "@/utils/formatTime";
-import { getUserInfo } from "@/utils/getUserInfo";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Message } from "@/types/Message";
+import React, { useState, useEffect, FC, memo } from 'react';
+import { useSmoothScroll } from 'hooks/useSmoothScroll';
+import { useAuthUser } from '@/hooks/useAuthUser';
+import { Skeleton } from '@mui/material';
+import { formatTime } from '@/utils/formatTime';
+import { getUserInfo } from '@/utils/getUserInfo';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Message } from '@/types/Message';
 
-import Avatar from "./avatar";
-import InfoMessage from "./infoMessage";
+import Avatar from './avatar';
+import InfoMessage from './infoMessage';
 
-import styles from "@/styles/components/ChatMessage.module.scss";
-import Image from "next/image";
+import styles from '@/styles/components/ChatMessage.module.scss';
+import Image from 'next/image';
 
 type Info = {
   displayName: string;
@@ -33,8 +33,8 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
   // const { uid, partnerid, groupid } = useParams();
   const { authUser } = useAuthUser();
   const [userInfo, setUserInfo] = useState<Info>({
-    displayName: "",
-    photoURL: "",
+    displayName: '',
+    photoURL: '',
   });
   const { chatRef, smoothScroll } = useSmoothScroll(isLastMessage);
 
@@ -78,7 +78,7 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
         });
       } else {
         setUserInfo({
-          displayName: "Unknown",
+          displayName: 'Unknown',
           photoURL: null,
         });
       }
@@ -107,7 +107,7 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
           isLastMessage={isLastMessage}
         />
       ) : from === authUser?.uid ? (
-        <ul className={[styles.message, styles.own].join(" ")} ref={chatRef}>
+        <ul className={[styles.message, styles.own].join(' ')} ref={chatRef}>
           <li className={styles.text}>
             <p className={styles.bubble}>{message}</p>
             {createdAt !== null && (
@@ -122,20 +122,20 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
         </ul>
       ) : (
         <ul
-          className={[styles.message, styles.partner].join(" ")}
+          className={[styles.message, styles.partner].join(' ')}
           ref={chatRef}
         >
           <li className={styles.profile}>
             {userInfo.photoURL ? (
               <Avatar size={40} storageRef={userInfo.photoURL} chat />
             ) : (
-              <AccountCircleIcon sx={{ width: "40px", height: "40px" }} />
+              <AccountCircleIcon sx={{ width: '40px', height: '40px' }} />
               // <div>Account Circle</div>
             )}
             <p>
               {userInfo.displayName !== undefined
                 ? userInfo.displayName
-                : "Unknown"}
+                : 'Unknown'}
             </p>
           </li>
           <li className={styles.text}>
@@ -154,7 +154,6 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
                 alt=""
                 width={250}
                 height={150}
-                placeholder="blur"
                 priority={true}
               />
             </li>

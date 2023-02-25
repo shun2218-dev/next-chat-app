@@ -1,16 +1,16 @@
-import React, { FC, memo, ReactNode, useTransition, useMemo } from "react";
-import Image from "next/image";
-import dynamic from "next/dynamic";
-import { usePathname } from "next/navigation";
-import { usePage } from "@/hooks/usePage";
-import styles from "@/styles/components/Header.module.scss";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useAuthUserStore } from "@/atoms/useAuthUserStore";
-import { useSignOut } from "@/hooks/useSignOut";
-import HeaderLogo from "./headerLogo";
+import React, { FC, memo, ReactNode, useTransition, useMemo } from 'react';
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
+import { usePathname } from 'next/navigation';
+import { usePage } from '@/hooks/usePage';
+import styles from '@/styles/components/Header.module.scss';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useAuthUserStore } from '@/atoms/useAuthUserStore';
+import { useSignOut } from '@/hooks/useSignOut';
+import HeaderLogo from './headerLogo';
 
-const Button = dynamic(() => import("@/components/button"));
-const SignOutIcon = dynamic(() => import("@/icons/signOutIcon"));
+const Button = dynamic(() => import('@/components/button'));
+const SignOutIcon = dynamic(() => import('@/icons/signOutIcon'));
 
 type Props = {
   children?: ReactNode;
@@ -29,8 +29,8 @@ const Header: FC<Props> = memo(function HeaderMemo({ children }) {
 
   return (
     <>
-      {pathname !== "/start" && pathname !== "/" && (
-        <header className={[styles.header, isLoginStyle].join(" ")}>
+      {pathname !== '/start' && pathname !== '/' && (
+        <header className={[styles.header, isLoginStyle].join(' ')}>
           {/* after log in switch toHome */}
           <HeaderLogo />
 
@@ -51,7 +51,7 @@ const Header: FC<Props> = memo(function HeaderMemo({ children }) {
                   sx={{
                     width: 60,
                     height: 60,
-                    "@media screen and (max-width:600px)": {
+                    '@media screen and (max-width:600px)': {
                       width: 40,
                       height: 40,
                     },
@@ -61,6 +61,7 @@ const Header: FC<Props> = memo(function HeaderMemo({ children }) {
                 // <div>Account CirCle</div>
               )}
               <Button
+                testid="signout-btn"
                 type="button"
                 variant="outlined"
                 color="primary"
