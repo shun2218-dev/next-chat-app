@@ -1,19 +1,19 @@
-"use client";
-import React, { memo, FormEvent, useRef, useState } from "react";
-import { usePage } from "@/hooks/usePage";
-import { auth, db, storage } from "@/firebase";
-import { updateProfile } from "firebase/auth";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useAuthUser } from "@/hooks/useAuthUser";
-import { doc, updateDoc } from "firebase/firestore";
+'use client';
+import React, { memo, FormEvent, useRef, useState } from 'react';
+import { usePage } from '@/hooks/usePage';
+import { auth, db, storage } from '@/firebase';
+import { updateProfile } from 'firebase/auth';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { useAuthUser } from '@/hooks/useAuthUser';
+import { doc, updateDoc } from 'firebase/firestore';
 
-import Avatar from "@/components/avatar";
-import Button from "@/components/button";
-import Form from "@/components/form";
-import Input from "@/components/input";
-import SettingIcon from "@/icons/settingIcon";
-import UploadIcon from "@/icons/uploadIcon";
-import { useAuthUserStore } from "@/atoms/useAuthUserStore";
+import Avatar from '@/components/avatar';
+import Button from '@/components/button';
+import Form from '@/components/form';
+import Input from '@/components/input';
+import SettingIcon from '@/icons/settingIcon';
+import UploadIcon from '@/icons/uploadIcon';
+import { useAuthUserStore } from '@/atoms/useAuthUserStore';
 // import FlashMessage from "@/components/flashMessage";
 // import { useFlashMessage } from "@/hooks/useFlashMessage";
 
@@ -31,7 +31,7 @@ const Profile = memo(function ProfileMemo() {
     displayName: string,
     photoURL: string
   ) => {
-    const userRef = doc(db, "users", uid);
+    const userRef = doc(db, 'users', uid);
     await updateDoc(userRef, { displayName, photoURL });
   };
 
@@ -56,9 +56,9 @@ const Profile = memo(function ProfileMemo() {
             .then(async () => await updateUserProfile(uid, name, url))
             .then(() =>
               toHome(uid, {
-                title: "Success",
-                status: "success",
-                text: "Setting profile succeeded.",
+                title: 'Success',
+                status: 'success',
+                text: 'Setting profile succeeded.',
               })
             );
         })
@@ -81,15 +81,15 @@ const Profile = memo(function ProfileMemo() {
         )
         .then(() =>
           toHome(uid, {
-            title: "Success",
-            status: "success",
-            text: "Setting profile succeeded.",
+            title: 'Success',
+            status: 'success',
+            text: 'Setting profile succeeded.',
           })
         )
         .finally(() => setLoading(false));
     } else {
       alert(
-        "User name and Profile image is a required contents to start chatting"
+        'User name and Profile image is a required contents to start chatting'
       );
       setLoading(false);
     }
@@ -99,6 +99,7 @@ const Profile = memo(function ProfileMemo() {
     <>
       {/* {flashState && <FlashMessage {...messageState!} />} */}
       <Form
+        testid="profile-form"
         title="Setting Profile"
         onSubmit={onSubmit}
         startIcon={<SettingIcon title />}
@@ -123,6 +124,7 @@ const Profile = memo(function ProfileMemo() {
           <Input label="Name" placeholder="Your Name" required ref={nameRef} />
         )}
         <Button
+          testid="upload-profile"
           type="submit"
           color="primary"
           variant="contained"

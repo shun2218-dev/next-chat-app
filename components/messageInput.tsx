@@ -5,12 +5,12 @@ import React, {
   SetStateAction,
   useState,
   ChangeEvent,
-} from "react";
+} from 'react';
 
-import SendIcon from "@/icons/sendIcon";
+import SendIcon from '@/icons/sendIcon';
 
-import styles from "@/styles/components/MessageInput.module.scss";
-import PhotoIcon from "@/icons/photoIcon";
+import styles from '@/styles/components/MessageInput.module.scss';
+import PhotoIcon from '@/icons/photoIcon';
 
 type Props = {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
@@ -19,6 +19,7 @@ type Props = {
   state: string;
   imageState: File | null;
   loading: boolean;
+  testid?: string;
 };
 
 const MessageInput: FC<Props> = ({
@@ -28,18 +29,19 @@ const MessageInput: FC<Props> = ({
   state,
   imageState,
   loading,
+  testid = '',
 }) => {
   const [url, setUrl] = useState<string | null>(null);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (setImageState) {
       if (e.target.files !== null) {
-        setUrl("");
+        setUrl('');
         setImageState(e.target.files[0]);
       }
     }
   };
   return (
-    <form className={styles.container} onSubmit={onSubmit}>
+    <form className={styles.container} onSubmit={onSubmit} data-testid={testid}>
       <input
         type="text"
         className={styles.input}
@@ -53,7 +55,7 @@ const MessageInput: FC<Props> = ({
         <input
           type="file"
           accept="image/*"
-          style={{ display: "none" }}
+          style={{ display: 'none' }}
           id="photo"
           onChange={handleChange}
         />

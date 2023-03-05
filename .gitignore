@@ -39,3 +39,7 @@ next-env.d.ts
 
 # turborepo
 .turbo
+
+# cypress
+cypress.dev.json
+cypress.dev.config.ts

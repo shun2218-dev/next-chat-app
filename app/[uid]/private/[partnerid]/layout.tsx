@@ -1,22 +1,22 @@
-"use client";
-import React, { useState, useEffect, ReactNode, FormEvent } from "react";
-import { PageParam } from "@/types/PageParam";
-import MessageInput from "@/components/messageInput";
-import { useChatMessage } from "@/hooks/useChatMessage";
-import styles from "@/styles/pages/Private.module.scss";
-import isCreatedRoom from "@/utils/private/isCreatedRoom";
+'use client';
+import React, { useState, useEffect, ReactNode, FormEvent } from 'react';
+import { PageParam } from '@/types/PageParam';
+import MessageInput from '@/components/messageInput';
+import { useChatMessage } from '@/hooks/useChatMessage';
+import styles from '@/styles/pages/Private.module.scss';
+import isCreatedRoom from '@/utils/private/isCreatedRoom';
 import {
   addDoc,
   collection,
   doc,
   serverTimestamp,
   updateDoc,
-} from "firebase/firestore";
-import { db, storage } from "@/firebase";
-import NotFoundIcon from "@/icons/notFoundIcon";
-import { useTransition } from "react";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { uploadChatImage } from "@/utils/uploadChatImage";
+} from 'firebase/firestore';
+import { db, storage } from '@/firebase';
+import NotFoundIcon from '@/icons/notFoundIcon';
+import { useTransition } from 'react';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { uploadChatImage } from '@/utils/uploadChatImage';
 
 export default function PrivateChatLayout({
   params,
@@ -35,7 +35,7 @@ export default function PrivateChatLayout({
     setChatRoom,
     setRoomExist,
   } = useChatMessage(false, params);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [image, setImage] = useState<File | null>(null);
   const [notHistory, setNotHistory] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -52,7 +52,7 @@ export default function PrivateChatLayout({
         setRoomExist(exist);
       });
       if (exist) {
-        const roomRef = collection(db, "rooms", `${roomid}`, "messages");
+        const roomRef = collection(db, 'rooms', `${roomid}`, 'messages');
         const res = await addDoc(roomRef, {
           message,
           from: uid,
@@ -65,7 +65,7 @@ export default function PrivateChatLayout({
       }
       startTransition(() => {
         setLoading(false);
-        setMessage("");
+        setMessage('');
         setImage(null);
       });
     }
@@ -75,7 +75,7 @@ export default function PrivateChatLayout({
     if (
       !dataLoading &&
       chatMessages.length === 0 &&
-      chatRoom === "" &&
+      chatRoom === '' &&
       roomExist
     ) {
       setTimeout(() => {
@@ -112,6 +112,7 @@ export default function PrivateChatLayout({
         )}
       </div>
       <MessageInput
+        testid="private-message-input"
         onSubmit={onSubmit}
         loading={isPending}
         state={message}

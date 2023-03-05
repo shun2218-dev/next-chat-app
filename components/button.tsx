@@ -1,25 +1,26 @@
-import React, { FC, ReactNode, useMemo } from "react";
-import styles from "@/styles/components/Button.module.scss";
-import Link from "next/link";
+import React, { FC, ReactNode, useMemo } from 'react';
+import styles from '@/styles/components/Button.module.scss';
+import Link from 'next/link';
 
-type Routes = "/start" | "/login" | "/regist" | "/reset" | string;
+type Routes = '/start' | '/login' | '/regist' | '/reset' | string;
 
 type Props = {
-  type: "button" | "submit" | "reset";
+  type: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   width?: string;
   height?: string;
   margin?: string;
   children: string | ReactNode;
   onClick?: () => void;
-  color: "primary" | "transparent" | "error" | "success";
-  variant?: "filled" | "outlined" | "contained";
+  color: 'primary' | 'transparent' | 'error' | 'success';
+  variant?: 'filled' | 'outlined' | 'contained';
   rounded?: boolean;
   fullWidth?: boolean;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
   header?: boolean;
   href?: Routes;
+  testid?: string;
 };
 
 const Button: FC<Props> = ({
@@ -30,21 +31,22 @@ const Button: FC<Props> = ({
   margin,
   children,
   onClick,
-  color = "transparent",
-  variant = "filled",
+  color = 'transparent',
+  variant = 'filled',
   fullWidth = false,
   startIcon,
   endIcon,
   header = false,
   href,
+  testid = '',
 }) => {
   const switchStyles = (variant: string) => {
     switch (variant) {
-      case "filled":
+      case 'filled':
         return styles.filled;
-      case "contained":
+      case 'contained':
         return styles.contained;
-      case "outlined":
+      case 'outlined':
         return styles.outlined;
       default:
         return styles.filled;
@@ -53,13 +55,13 @@ const Button: FC<Props> = ({
 
   const switchBgColor = (color: string) => {
     switch (color) {
-      case "primary":
+      case 'primary':
         return styles.primary;
-      case "transparent":
+      case 'transparent':
         return styles.transparent;
-      case "error":
+      case 'error':
         return styles.error;
-      case "success":
+      case 'success':
         return styles.success;
       default:
         return styles.transparent;
@@ -90,8 +92,9 @@ const Button: FC<Props> = ({
         switchBgColor(color),
         switchWidth(fullWidth),
         styles.button,
-        header ? styles.header : "",
-      ].join(" ")}
+        header ? styles.header : '',
+      ].join(' ')}
+      data-testid={testid}
     >
       {href ? (
         <Link href={href} className={styles.buttonLink}>
