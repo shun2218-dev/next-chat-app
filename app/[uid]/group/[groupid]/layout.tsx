@@ -1,25 +1,25 @@
-"use client";
+'use client';
 import React, {
   useState,
   useEffect,
   ReactNode,
   FormEvent,
   useTransition,
-} from "react";
-import { PageParam } from "@/types/PageParam";
-import dynamic from "next/dynamic";
-import { useChatMessage } from "@/hooks/useChatMessage";
-import styles from "@/styles/pages/Private.module.scss";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db } from "@/firebase";
-import { useAuthUser } from "@/hooks/useAuthUser";
-import { uploadChatImage } from "@/utils/uploadChatImage";
+} from 'react';
+import { PageParam } from '@/types/PageParam';
+import dynamic from 'next/dynamic';
+import { useChatMessage } from '@/hooks/useChatMessage';
+import styles from '@/styles/pages/Private.module.scss';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { db } from '@/firebase';
+import { useAuthUser } from '@/hooks/useAuthUser';
+import { uploadChatImage } from '@/utils/uploadChatImage';
 
 const MessageInput = dynamic(
-  async () => await import("@/components/messageInput")
+  async () => await import('@/components/messageInput')
 );
-const NotFoundIcon = dynamic(async () => await import("@/icons/notFoundIcon"));
-const UserList = dynamic(async () => await import("@/components/userList"));
+const NotFoundIcon = dynamic(async () => await import('@/icons/notFoundIcon'));
+const UserList = dynamic(async () => await import('@/components/userList'));
 
 export default function GroupChatLayout({
   params,
@@ -33,7 +33,7 @@ export default function GroupChatLayout({
     true,
     params
   );
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [image, setImage] = useState<File | null>(null);
   const [notHistory, setNotHistory] = useState(false);
   const { authUser } = useAuthUser();
@@ -43,12 +43,12 @@ export default function GroupChatLayout({
     e.preventDefault();
     if (message) {
       if (!authUser?.displayName || !authUser?.photoURL) {
-        alert("Please set up your profile to chat!");
+        alert('Please set up your profile to chat!');
       } else {
         startTransition(() => {
           setLoading(true);
         });
-        const groupRef = collection(db, "groups", groupid!, "messages");
+        const groupRef = collection(db, 'groups', groupid!, 'messages');
         const res = await addDoc(groupRef, {
           message,
           from: uid!,
@@ -59,7 +59,7 @@ export default function GroupChatLayout({
           await uploadChatImage(res.id, groupid!, image, true);
         }
         startTransition(() => {
-          setMessage("");
+          setMessage('');
           setImage(null);
           setLoading(false);
         });
@@ -67,7 +67,7 @@ export default function GroupChatLayout({
     }
   };
   useEffect(() => {
-    if (!dataLoading && chatMessages.length === 0 && chatRoom === "") {
+    if (!dataLoading && chatMessages.length === 0 && chatRoom === '') {
       setTimeout(() => {
         startTransition(() => {
           setNotHistory(true);
@@ -103,6 +103,7 @@ export default function GroupChatLayout({
         )}
       </div>
       <MessageInput
+        testid="group-message-input"
         onSubmit={onSubmit}
         loading={isPending}
         state={message}
