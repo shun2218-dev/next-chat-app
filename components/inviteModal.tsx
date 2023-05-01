@@ -9,8 +9,7 @@ import React, {
 import Image from 'next/image';
 import { informationMessage } from '@/utils/infomationMessage';
 import { getUserInfo } from '@/utils/getUserInfo';
-import { db } from '@/firebase';
-import { doc, setDoc } from 'firebase/firestore';
+import { setDoc } from 'firebase/firestore';
 import { CustomModal } from '@/types/CustomModal';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
@@ -19,6 +18,7 @@ import { Modal } from './modal';
 
 import utilStyles from '@/styles/utils/utils.module.scss';
 import styles from '@/styles/components/Modal.module.scss';
+import { INSERT_INVITATION_USERS } from 'queries/query';
 
 const InviteModalMemo: FC<CustomModal> = ({
   params,
@@ -36,11 +36,13 @@ const InviteModalMemo: FC<CustomModal> = ({
     e.preventDefault();
 
     if (inviteIds!.length !== 0) {
-      inviteIds!.forEach(async (invite) => {
+      inviteIds!.forEach(async (inviteid) => {
         setLoading(true);
-        const inviteRef = doc(db, 'groups', groupid!, 'invitations', invite!);
-        await getUserInfo(invite!).then(async (user) => {
-          await setDoc(inviteRef, user).then(onClose);
+
+        await getUserInfo(inviteid!).then(async (user) => {
+          await setDoc(INSERT_INVITATION_USERS(groupid!, inviteid), user).then(
+            onClose
+          );
         });
       });
 

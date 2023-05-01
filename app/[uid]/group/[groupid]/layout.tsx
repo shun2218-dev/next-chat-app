@@ -14,6 +14,7 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/firebase';
 import { useAuthUser } from '@/hooks/useAuthUser';
 import { uploadChatImage } from '@/utils/uploadChatImage';
+import { GET_GROUP_MEMBERS, INSERT_GROUP_MESSAGE } from 'queries/query';
 
 const MessageInput = dynamic(
   async () =>
@@ -51,8 +52,8 @@ export default function GroupChatLayout({
         startTransition(() => {
           setLoading(true);
         });
-        const groupRef = collection(db, 'groups', groupid!, 'messages');
-        const res = await addDoc(groupRef, {
+
+        const res = await addDoc(INSERT_GROUP_MESSAGE(groupid!), {
           message,
           from: uid!,
           createdAt: serverTimestamp(),

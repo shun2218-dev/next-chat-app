@@ -1,5 +1,5 @@
-@use "../config/variables" as var;
-@use "../config/mixin" as mix;
+@use '../config/variables' as var;
+@use '../config/mixin' as mix;
 
 .overlay {
   position: absolute;
@@ -109,7 +109,7 @@
 
 .contentTitle {
   text-align: left;
-  margin: 5px 0;
+  margin: 1rem 0 0.5rem;
 }
 
 .contentBox {

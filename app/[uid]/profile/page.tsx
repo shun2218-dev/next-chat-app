@@ -14,6 +14,7 @@ import { Input } from '@/components/input';
 import SettingIcon from '@/icons/settingIcon';
 import UploadIcon from '@/icons/uploadIcon';
 import { useAuthUserStore } from '@/atoms/useAuthUserStore';
+import { GET_USER_BY_ID, INSERT_AVATAR_IMAGE } from 'queries/query';
 // import FlashMessage from "@/components/flashMessage";
 // import { useFlashMessage } from "@/hooks/useFlashMessage";
 
@@ -31,8 +32,7 @@ const ProfileMemo = () => {
     displayName: string,
     photoURL: string
   ) => {
-    const userRef = doc(db, 'users', uid);
-    await updateDoc(userRef, { displayName, photoURL });
+    await updateDoc(GET_USER_BY_ID(uid), { displayName, photoURL });
   };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -41,9 +41,8 @@ const ProfileMemo = () => {
     const { uid, email } = authUser!;
     setLoading(true);
     if (image && name && uid && email) {
-      const imageRef = ref(storage, `avaters/${uid}_${image.name}`);
-      await uploadBytes(imageRef, image);
-      await getDownloadURL(imageRef)
+      await uploadBytes(INSERT_AVATAR_IMAGE(uid, image.name), image);
+      await getDownloadURL(INSERT_AVATAR_IMAGE(uid, image.name))
         .then(async (url) => {
           await updateProfile(auth.currentUser!, {
             displayName: name,

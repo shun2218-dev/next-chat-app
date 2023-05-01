@@ -28,6 +28,8 @@ const Regist = ({ params }: Props) => {
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordConfirmationRef = useRef<HTMLInputElement>(null);
 
+  if (error) throw new Error(error.message);
+
   const passwordValidate = (password: string, passwordConfirmation: string) => {
     if (password === passwordConfirmation) {
       return true;

@@ -1,16 +1,14 @@
 'use client';
-import { db } from '@/firebase';
+
 import { Message } from '@/types/Message';
 import { PageParam } from '@/types/PageParam';
+import { getDoc, getDocs, onSnapshot, orderBy } from 'firebase/firestore';
 import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  onSnapshot,
-  orderBy,
-  query,
-} from 'firebase/firestore';
+  GET_GROUP_MESSAGES,
+  GET_PRIVATE_MESSAGES,
+  GET_PRIVATE_ROOMS,
+  GET_PRIVATE_ROOM_BY_ID,
+} from 'queries/query';
 import { useEffect, useMemo, useState } from 'react';
 
 export const useChatMessage = (
@@ -26,8 +24,7 @@ export const useChatMessage = (
   const { uid, partnerid, groupid } = pageParams;
   const getRoomId = async (uid: string, roomDocId: string) => {
     let roomid: string = '';
-    const roomRef = doc(db, 'users', `${uid}`, 'rooms', `${roomDocId}`);
-    await getDoc(roomRef).then((res) => {
+    await getDoc(GET_PRIVATE_ROOM_BY_ID(uid, roomDocId)).then((res) => {
       roomid = res.data()!.roomid;
     });
     return roomid;
@@ -35,17 +32,16 @@ export const useChatMessage = (
 
   useEffect(() => {
     if (!group && chatRoom) {
-      const q = query(
-        collection(db, 'rooms', chatRoom, 'messages'),
-        ...messageOptions
+      const unSub = onSnapshot(
+        GET_PRIVATE_MESSAGES(chatRoom, messageOptions),
+        (snapshot) => {
+          setChatMessages([
+            ...snapshot.docs.map((doc) => {
+              return { id: doc.id, ...doc.data() } as Message;
+            }),
+          ]);
+        }
       );
-      const unSub = onSnapshot(q, (snapshot) => {
-        setChatMessages([
-          ...snapshot.docs.map((doc) => {
-            return { id: doc.id, ...doc.data() } as Message;
-          }),
-        ]);
-      });
       return () => {
         unSub();
       };
@@ -55,27 +51,24 @@ export const useChatMessage = (
   useEffect(() => {
     if (!group && partnerid) {
       setDataLoading(true);
-      const userRef = collection(db, 'users', uid!, 'rooms');
-      const unSubUser = onSnapshot(userRef, (snapshot) => {
+      const unSubUser = onSnapshot(GET_PRIVATE_ROOMS(uid!), (snapshot) => {
         const room = snapshot.docs.filter((doc) => doc.id === partnerid);
         if (room.length && uid) {
           const roomDocId = room[0].id;
           getRoomId(uid, roomDocId).then((roomid) => {
             setChatRoom(roomid);
-            const messageRef = query(
-              collection(db, 'rooms', `${roomid}`, 'messages'),
-              orderBy('createdAt', 'asc')
+            getDocs(GET_PRIVATE_MESSAGES(roomid, messageOptions)).then(
+              (snapshot) => {
+                setChatMessages([
+                  ...snapshot.docs.map((doc) => {
+                    return {
+                      id: doc.id,
+                      ...doc.data(),
+                    } as Message;
+                  }),
+                ]);
+              }
             );
-            getDocs(messageRef).then((snapshot) => {
-              setChatMessages([
-                ...snapshot.docs.map((doc) => {
-                  return {
-                    id: doc.id,
-                    ...doc.data(),
-                  } as Message;
-                }),
-              ]);
-            });
           });
           setDataLoading(false);
         } else {
@@ -97,17 +90,16 @@ export const useChatMessage = (
 
   useEffect(() => {
     if (groupid) {
-      const q = query(
-        collection(db, 'groups', groupid!, 'messages'),
-        ...messageOptions
+      const unSub = onSnapshot(
+        GET_GROUP_MESSAGES(groupid, messageOptions),
+        (snapshot) => {
+          setChatMessages([
+            ...snapshot.docs.map((doc) => {
+              return { id: doc.id, ...doc.data() } as Message;
+            }),
+          ]);
+        }
       );
-      const unSub = onSnapshot(q, (snapshot) => {
-        setChatMessages([
-          ...snapshot.docs.map((doc) => {
-            return { id: doc.id, ...doc.data() } as Message;
-          }),
-        ]);
-      });
       return () => {
         unSub();
       };

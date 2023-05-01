@@ -1,7 +1,7 @@
 import React, { FC, memo, useCallback, useState } from 'react';
 import { usePage } from 'hooks/usePage';
-import { deleteDoc, doc } from 'firebase/firestore';
-import { db } from '@/firebase';
+import { deleteDoc } from 'firebase/firestore';
+
 import { NavigationState } from '@/types/NavigationState';
 import { CustomModal } from '@/types/CustomModal';
 import { informationMessage } from '@/utils/infomationMessage';
@@ -10,6 +10,7 @@ import Button from './button';
 import { Modal } from './modal';
 
 import styles from '@/styles/components/Modal.module.scss';
+import { DELETE_GROUP_USER } from 'queries/query';
 
 const ExitModalMemo: FC<CustomModal> = ({ params, open, modalToggle }) => {
   const { uid, groupid } = params;
@@ -24,7 +25,7 @@ const ExitModalMemo: FC<CustomModal> = ({ params, open, modalToggle }) => {
         status: 'success',
         text: 'Exit group.',
       } as NavigationState;
-      await deleteDoc(doc(db, 'groups', groupid, 'members', uid))
+      await deleteDoc(DELETE_GROUP_USER(groupid, uid))
         .then(() => toHome(uid!, flashMessage))
         .then(async () => {
           await informationMessage(uid, groupid, 'existed').then(() =>

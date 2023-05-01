@@ -1,5 +1,5 @@
-@use "../config/variables" as var;
-@use "../config/mixin" as mix;
+@use '../config/variables' as var;
+@use '../config/mixin' as mix;
 
 .groupList {
   max-height: 80%;
@@ -29,7 +29,7 @@
   // border-radius: 6px;
   & p {
     flex-grow: 1;
-    margin: 0.5rem 0;
+    margin: 0.5rem 0 0.5rem 1rem;
   }
   @include mix.hoverColor(lighten(var.$font-color, 20)) {
     background-color: lighten(var.$black, 20);

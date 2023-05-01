@@ -2,11 +2,8 @@ import React, { FC, memo, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { usePage } from 'hooks/usePage';
 import { useAuthUser } from '@/hooks/useAuthUser';
-import { db } from '@/firebase';
 import {
-  collection,
   deleteDoc,
-  doc,
   DocumentData,
   getDoc,
   getDocs,
@@ -21,6 +18,12 @@ import Button from './button';
 
 import styles from '@/styles/components/Modal.module.scss';
 import utilStyles from '@/styles/utils/utils.module.scss';
+import {
+  DELETE_INVITATION_USER,
+  GET_GROUP_INFO_BY_ID,
+  GET_GROUP_INVITATION_USERS,
+  GET_GROUP_MEMBER_BY_ID,
+} from 'queries/query';
 
 const JoinModalMemo: FC<CustomModal> = ({ params, open, modalToggle }) => {
   const { authUser } = useAuthUser();
@@ -30,20 +33,19 @@ const JoinModalMemo: FC<CustomModal> = ({ params, open, modalToggle }) => {
   const [profileEmpty, setProfileEmpty] = useState(false);
 
   const invitationCheck = async (uid: string, groupid: string) => {
-    const inviteRef = collection(db, 'groups', groupid, 'invitations');
-    await getDocs(inviteRef).then(async (snapshot) => {
-      const ids = snapshot.docs.map((doc) => doc.id);
-      if (ids.includes(uid)) {
-        const targetRef = doc(db, 'groups', groupid, 'invitations', uid);
-        await deleteDoc(targetRef);
+    await getDocs(GET_GROUP_INVITATION_USERS(groupid)).then(
+      async (snapshot) => {
+        const ids = snapshot.docs.map((doc) => doc.id);
+        if (ids.includes(uid)) {
+          await deleteDoc(DELETE_INVITATION_USER(groupid, uid));
+        }
       }
-    });
+    );
   };
   const joinGroup = async (groupid: string, uid: string) => {
-    const membersRef = doc(db, 'groups', groupid, 'members', uid);
     await getUserInfo(uid)
       .then(async (member) => {
-        await setDoc(membersRef, member)
+        await setDoc(GET_GROUP_MEMBER_BY_ID(groupid, uid), member)
           .then(async () => {
             await informationMessage(uid, groupid, 'joined');
           })
@@ -64,8 +66,7 @@ const JoinModalMemo: FC<CustomModal> = ({ params, open, modalToggle }) => {
 
   useEffect(() => {
     if (groupid) {
-      const groupRef = doc(db, 'groups', groupid);
-      getDoc(groupRef).then((docSnapshot) => {
+      getDoc(GET_GROUP_INFO_BY_ID(groupid)).then((docSnapshot) => {
         if (docSnapshot.exists()) {
           setGroupInfo({ ...docSnapshot.data() });
         }

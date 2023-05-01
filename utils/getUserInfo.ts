@@ -1,17 +1,16 @@
-import { db } from "@/firebase";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { db } from '@/firebase';
+import { doc, getDoc, getDocs } from 'firebase/firestore';
+import { GET_USERS, GET_USER_BY_ID } from 'queries/query';
 
 export const getUserInfo = async (uid: string) => {
-  const userRef = doc(db, "users", uid);
-  const docSnap = await getDoc(userRef);
+  const docSnap = await getDoc(GET_USER_BY_ID(uid));
   if (docSnap.exists()) {
     const user = docSnap.data();
     return user;
   }
 };
 export const getAllUsersInfo = async () => {
-  const userRef = collection(db, "users");
-  const usersSnapshot = await getDocs(userRef);
+  const usersSnapshot = await getDocs(GET_USERS());
   return usersSnapshot.docs;
 };
 
@@ -22,7 +21,7 @@ export const getUserIds = async () => {
 };
 
 export const getMemberInfo = async (groupid: string, from: string) => {
-  const memberRef = doc(db, "groups", groupid, "members", from);
+  const memberRef = doc(db, 'groups', groupid, 'members', from);
   const docSnap = await getDoc(memberRef);
   if (docSnap.exists()) {
     const member = docSnap.data();

@@ -25,6 +25,8 @@ const Login = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
   // const { messageState, flashState, reset } = useFlashMessage(10000);
 
+  if (error) throw new Error(error.message);
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = emailRef.current?.value;

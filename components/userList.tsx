@@ -12,13 +12,11 @@ import { usePage } from 'hooks/usePage';
 import styles from '@/styles/components/UserList.module.scss';
 import utilStyles from '@/styles/utils/utils.module.scss';
 import {
-  collection,
   DocumentData,
   QueryDocumentSnapshot,
   onSnapshot,
   QuerySnapshot,
 } from 'firebase/firestore';
-import { db } from '@/firebase';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Button from './button';
@@ -28,6 +26,11 @@ import { usePathname } from 'next/navigation';
 import { JoinModal } from './joinModal';
 import { InviteModal } from './inviteModal';
 import { ExitModal } from './exitModal';
+import {
+  GET_GROUP_INVITATION_USERS,
+  GET_GROUP_MEMBERS,
+  GET_USERS,
+} from 'queries/query';
 
 export type Props = {
   params: PageParam;
@@ -95,8 +98,7 @@ const UserListMemo: FC<Props> = ({ params, group = false }) => {
   }, [pathname, getId]);
 
   useEffect(() => {
-    const userRef = collection(db, 'users');
-    const unSubUser = onSnapshot(userRef, (snapshot) => {
+    const unSubUser = onSnapshot(GET_USERS(), (snapshot) => {
       setAllUsers([...snapshot.docs.map((doc) => doc)]);
     });
     return () => {
@@ -105,10 +107,8 @@ const UserListMemo: FC<Props> = ({ params, group = false }) => {
   }, []);
 
   useEffect(() => {
-    const userRef = collection(db, 'users');
     if (group && roomId) {
-      const groupMembersRef = collection(db, 'groups', roomId, 'members');
-      const unSub = onSnapshot(groupMembersRef, (snapshot) => {
+      const unSub = onSnapshot(GET_GROUP_MEMBERS(roomId), (snapshot) => {
         if (isNotMember(snapshot) && !joinOpen) {
           setJoinOpen(true);
         } else {
@@ -121,7 +121,7 @@ const UserListMemo: FC<Props> = ({ params, group = false }) => {
         unSub();
       };
     } else {
-      const unSub = onSnapshot(userRef, (snapshot) => {
+      const unSub = onSnapshot(GET_USERS(), (snapshot) => {
         setUsers([...snapshot.docs.filter((doc) => doc.id !== authUser?.uid!)]);
         setIds([...snapshot.docs.map((doc) => doc.id)]);
       });
@@ -129,7 +129,7 @@ const UserListMemo: FC<Props> = ({ params, group = false }) => {
         unSub();
       };
     }
-  }, [authUser?.uid, group, isNotMember, joinOpen, roomId]);
+  }, [authUser?.uid, group, isNotMember, roomId]);
 
   useEffect(() => {
     const notMembers = allUsers.filter(
@@ -143,11 +143,13 @@ const UserListMemo: FC<Props> = ({ params, group = false }) => {
 
   useEffect(() => {
     if (roomId && group) {
-      const inviteRef = collection(db, 'groups', roomId, 'invitations');
-      const unSub = onSnapshot(inviteRef, (snapshot) => {
-        setInviteLists([...snapshot.docs.map((doc) => doc)]);
-        setInviteIds([...snapshot.docs.map((doc) => doc.id)]);
-      });
+      const unSub = onSnapshot(
+        GET_GROUP_INVITATION_USERS(roomId),
+        (snapshot) => {
+          setInviteLists([...snapshot.docs.map((doc) => doc)]);
+          setInviteIds([...snapshot.docs.map((doc) => doc.id)]);
+        }
+      );
       return () => {
         unSub();
       };

@@ -1,5 +1,5 @@
-@use "../config//variables" as var;
-@import url("https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap");
+@use '../config//variables' as var;
+@import url('https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap');
 $own-text: var.$primary;
 $own-bg: var.$font-color;
 $partner-text: var.$secondary;
@@ -21,7 +21,7 @@ $partner-bg: var.$primary;
   position: relative;
   font-size: 0.85rem;
   // font-family: var(--font-caveat), "Yuji Mai", serif;
-  font-family: so-lovely, "Yuji Mai", serif;
+  font-family: so-lovely, 'Yuji Mai', serif;
   @media screen and (max-width: 600px) {
     font-size: 0.68rem;
   }
@@ -38,7 +38,7 @@ $partner-bg: var.$primary;
     text-align: left;
     color: $own-text;
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       top: 5px;
       right: -4px;
@@ -63,7 +63,7 @@ $partner-bg: var.$primary;
     margin-top: 0;
     margin-left: 60px;
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       top: 4px;
       left: -3px;
@@ -119,6 +119,7 @@ $partner-bg: var.$primary;
     max-width: 100%;
     width: 260px;
     height: 100%;
+    object-fit: contain;
   }
   @media screen and (max-width: 800px) {
     height: 140px;

@@ -17,6 +17,7 @@ import NotFoundIcon from '@/icons/notFoundIcon';
 import { useTransition } from 'react';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { uploadChatImage } from '@/utils/uploadChatImage';
+import { INSERT_PRIVATE_MESSAGE } from 'queries/query';
 
 export default function PrivateChatLayout({
   params,
@@ -52,8 +53,7 @@ export default function PrivateChatLayout({
         setRoomExist(exist);
       });
       if (exist) {
-        const roomRef = collection(db, 'rooms', `${roomid}`, 'messages');
-        const res = await addDoc(roomRef, {
+        const res = await addDoc(INSERT_PRIVATE_MESSAGE(roomid), {
           message,
           from: uid,
           createdAt: serverTimestamp(),

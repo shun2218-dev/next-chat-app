@@ -1,6 +1,5 @@
 import React, { FC, memo, useEffect, useState } from 'react';
-import { db } from '@/firebase';
-import { deleteDoc, doc, DocumentData } from 'firebase/firestore';
+import { deleteDoc, DocumentData } from 'firebase/firestore';
 import { getUserInfo } from '@/utils/getUserInfo';
 import { informationMessage } from '@/utils/infomationMessage';
 import { CustomModal } from '@/types/CustomModal';
@@ -10,6 +9,7 @@ import { Modal } from './modal';
 import { Avatar } from './avatar';
 
 import styles from '@/styles/components/Modal.module.scss';
+import { DELETE_INVITATION_USER } from 'queries/query';
 
 const CancelModal: FC<CustomModal> = memo(function CancelModalMemo({
   params,
@@ -33,9 +33,8 @@ const CancelModal: FC<CustomModal> = memo(function CancelModalMemo({
 
   const onSubmit = async () => {
     if (cancelId && setCancelId) {
-      const inviteRef = doc(db, 'groups', groupid!, 'invitations', cancelId);
       setLoading(true);
-      await deleteDoc(inviteRef)
+      await deleteDoc(DELETE_INVITATION_USER(groupid!, cancelId))
         .then(onClose)
         .then(
           async () =>
