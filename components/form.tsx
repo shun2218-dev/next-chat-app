@@ -1,4 +1,4 @@
-import React, { FC, FormEvent, ReactNode } from 'react';
+import React, { FC, FormEvent, ReactNode, memo } from 'react';
 import styles from '@/styles/components/Form.module.scss';
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
   testid?: string;
 };
 
-const Form: FC<Props> = ({
+const FormMemo: FC<Props> = ({
   children,
   title,
   secondTitle,
@@ -35,4 +35,4 @@ const Form: FC<Props> = ({
   );
 };
 
-export default Form;
+export const Form = memo(FormMemo);

@@ -1,23 +1,24 @@
-"use client";
+'use client';
 
-import React, { memo, Fragment, FC, useTransition } from "react";
-import dynamic from "next/dynamic";
-import { formatDate } from "@/utils/formatDate";
-import { useChatMessage } from "@/hooks/useChatMessage";
+import React, { memo, Fragment, FC, useTransition } from 'react';
+import dynamic from 'next/dynamic';
+import { formatDate } from '@/utils/formatDate';
+import { useChatMessage } from '@/hooks/useChatMessage';
 
 const ChatMessage = dynamic(
-  async () => await import("@/components/chatMessage")
+  async () =>
+    await import('@/components/chatMessage').then((mod) => mod.ChatMessage)
 );
 const MessageDate = dynamic(
-  async () => await import("@/components/messageDate")
+  async () => await import('@/components/messageDate')
 );
-import { PageParam } from "@/types/PageParam";
+import { PageParam } from '@/types/PageParam';
 
 type Props = {
   params: PageParam;
 };
 
-const GroupRoom: FC<Props> = memo(function GroupRoomMemo({ params }) {
+const GroupRoomMemo: FC<Props> = ({ params }) => {
   const [isPending] = useTransition();
   const { chatMessages } = useChatMessage(true, params);
 
@@ -66,6 +67,7 @@ const GroupRoom: FC<Props> = memo(function GroupRoomMemo({ params }) {
       )}
     </>
   );
-});
+};
 
+const GroupRoom = memo(GroupRoomMemo);
 export default GroupRoom;

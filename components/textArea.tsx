@@ -1,5 +1,5 @@
-import React, { ChangeEvent, FC } from "react";
-import styles from "@/styles/components/TextArea.module.scss";
+import React, { ChangeEvent, FC, memo } from 'react';
+import styles from '@/styles/components/TextArea.module.scss';
 
 type Props = {
   label: string;
@@ -12,7 +12,7 @@ type Props = {
   onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
-const TextArea: FC<Props> = ({
+const TextAreaMemo: FC<Props> = ({
   label,
   rows = 6,
   cols = 60,
@@ -38,4 +38,4 @@ const TextArea: FC<Props> = ({
   );
 };
 
-export default TextArea;
+export const TextArea = memo(TextAreaMemo);

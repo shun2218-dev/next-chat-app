@@ -1,4 +1,4 @@
-@use "../config/variables" as var;
+@use '../config/variables' as var;
 
 .input {
   box-sizing: border-box;
@@ -9,21 +9,21 @@
   width: 100%;
   width: 500px;
   // font-family: var(--font-caveat), "Yuji Mai", serif;
-  font-family: so-lovely, "Yuji Mai", serif;
+  font-family: so-lovely, 'Yuji Mai', serif;
   & textarea {
     padding: 10px;
     resize: none;
     height: 104px;
     background-color: var.$font-color;
-    color: var.$black;
+    color: var.$primary;
     padding: 10px 10px;
     border: 5px solid var.$font-color;
     // border-radius: 6px;
     // font-family: var(--font-caveat), "Yuji Mai", serif;
-    font-family: so-lovely, "Yuji Mai", serif;
+    font-family: so-lovely, 'Yuji Mai', serif;
     &::placeholder {
       // font-family: var(--font-caveat), "Yuji Mai", serif;
-      font-family: so-lovely, "Yuji Mai", serif;
+      font-family: so-lovely, 'Yuji Mai', serif;
     }
     &:focus {
       border: 5px solid var.$primary;

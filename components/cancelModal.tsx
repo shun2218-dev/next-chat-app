@@ -1,15 +1,15 @@
-import React, { FC, memo, useEffect, useState } from "react";
-import { db } from "@/firebase";
-import { deleteDoc, doc, DocumentData } from "firebase/firestore";
-import { getUserInfo } from "@/utils/getUserInfo";
-import { informationMessage } from "@/utils/infomationMessage";
-import { CustomModal } from "@/types/CustomModal";
+import React, { FC, memo, useEffect, useState } from 'react';
+import { db } from '@/firebase';
+import { deleteDoc, doc, DocumentData } from 'firebase/firestore';
+import { getUserInfo } from '@/utils/getUserInfo';
+import { informationMessage } from '@/utils/infomationMessage';
+import { CustomModal } from '@/types/CustomModal';
 
-import Button from "./button";
-import Modal from "./modal";
-import Avatar from "./avatar";
+import Button from './button';
+import { Modal } from './modal';
+import { Avatar } from './avatar';
 
-import styles from "@/styles/components/Modal.module.scss";
+import styles from '@/styles/components/Modal.module.scss';
 
 const CancelModal: FC<CustomModal> = memo(function CancelModalMemo({
   params,
@@ -24,8 +24,8 @@ const CancelModal: FC<CustomModal> = memo(function CancelModalMemo({
 
   const onClose = () => {
     if (setCancelId) {
-      modalToggle("cancel");
-      setCancelId("");
+      modalToggle('cancel');
+      setCancelId('');
       setLoading(false);
       setUser(undefined);
     }
@@ -33,13 +33,13 @@ const CancelModal: FC<CustomModal> = memo(function CancelModalMemo({
 
   const onSubmit = async () => {
     if (cancelId && setCancelId) {
-      const inviteRef = doc(db, "groups", groupid!, "invitations", cancelId);
+      const inviteRef = doc(db, 'groups', groupid!, 'invitations', cancelId);
       setLoading(true);
       await deleteDoc(inviteRef)
         .then(onClose)
         .then(
           async () =>
-            await informationMessage(uid!, groupid!, "canceled", cancelId)
+            await informationMessage(uid!, groupid!, 'canceled', cancelId)
         );
     }
   };
@@ -60,7 +60,7 @@ const CancelModal: FC<CustomModal> = memo(function CancelModalMemo({
           <p className={styles.text}>{user.displayName}</p>
         </div>
       )}
-      <div className={[styles.modalButton, styles.row].join(" ")}>
+      <div className={[styles.modalButton, styles.row].join(' ')}>
         <Button
           type="button"
           color="primary"

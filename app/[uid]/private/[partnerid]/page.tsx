@@ -1,17 +1,17 @@
-"use client";
-import React, { memo, Fragment, FC } from "react";
-import { useChatMessage } from "@/hooks/useChatMessage";
-import { formatDate } from "@/utils/formatDate";
+'use client';
+import React, { memo, Fragment, FC } from 'react';
+import { useChatMessage } from '@/hooks/useChatMessage';
+import { formatDate } from '@/utils/formatDate';
 
-import ChatMessage from "@/components/chatMessage";
-import MessageDate from "@/components/messageDate";
-import { PageParam } from "@/types/PageParam";
+import { ChatMessage } from '@/components/chatMessage';
+import MessageDate from '@/components/messageDate';
+import { PageParam } from '@/types/PageParam';
 
 type Props = {
   params: PageParam;
 };
 
-const PrivateRoom: FC<Props> = memo(function PrivateRoomMemo({ params }) {
+const PrivateRoomMemo: FC<Props> = ({ params }) => {
   const { chatMessages } = useChatMessage(false, params);
 
   return (
@@ -53,6 +53,7 @@ const PrivateRoom: FC<Props> = memo(function PrivateRoomMemo({ params }) {
       })}
     </>
   );
-});
+};
 
+const PrivateRoom = memo(PrivateRoomMemo);
 export default PrivateRoom;

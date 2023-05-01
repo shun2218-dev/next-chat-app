@@ -1,11 +1,11 @@
 'use client';
-import React, { memo, FC, FormEvent, useEffect, useRef } from 'react';
+import React, { FormEvent, useEffect, useRef } from 'react';
 import { usePage } from '@/hooks/usePage';
 import { useSignUp } from '@/hooks/useSignUp';
 
 import Button from '@/components/button';
-import Form from '@/components/form';
-import Input from '@/components/input';
+import { Form } from '@/components/form';
+import { Input } from '@/components/input';
 import SignUpIcon from '@/icons/signUpIcon';
 import SignInIcon from '@/icons/signInIcon';
 import CheckInIcon from '@/icons/checkInIcon';
@@ -17,8 +17,12 @@ type Props = {
   params: PageParam;
 };
 
-const Regist: FC<Props> = memo(function RegistMemo({ params }) {
-  const { toLogin, toUser } = usePage();
+export const dynamic = 'error';
+export const dynamicParams = true;
+export const revalidate = 1;
+
+const Regist = ({ params }: Props) => {
+  const { toUser } = usePage();
   const { signUp, loading, error } = useSignUp();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -105,6 +109,6 @@ const Regist: FC<Props> = memo(function RegistMemo({ params }) {
       </Form>
     </>
   );
-});
+};
 
 export default Regist;

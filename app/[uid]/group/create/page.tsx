@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, {
   memo,
   ChangeEvent,
@@ -6,28 +6,28 @@ import React, {
   useRef,
   useState,
   FC,
-} from "react";
+} from 'react';
 
 // import { useFlashMessage } from "@/hooks/useFlashMessage";
-import { useCreateGroup } from "@/hooks/useCreateGroup";
-import { usePage } from "@/hooks/usePage";
-import utilStyles from "@/styles/utils/utils.module.scss";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useCreateGroup } from '@/hooks/useCreateGroup';
+import { usePage } from '@/hooks/usePage';
+import utilStyles from '@/styles/utils/utils.module.scss';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-import Form from "@/components/form";
-import Input from "@/components/input";
-import TextArea from "@/components/textArea";
-import Button from "@/components/button";
+import { Form } from '@/components/form';
+import { Input } from '@/components/input';
+import { TextArea } from '@/components/textArea';
+import Button from '@/components/button';
 // import FlashMessage from "@/components/flashMessage";
-import Image from "next/image";
-import { PageParam } from "@/types/PageParam";
+import Image from 'next/image';
+import { PageParam } from '@/types/PageParam';
 
 type Props = {
   params: PageParam;
 };
 
-const Create: FC<Props> = memo(function CreateMemo({ params }) {
-  const [desc, setDesc] = useState("");
+const CreateMemo: FC<Props> = ({ params }) => {
+  const [desc, setDesc] = useState('');
   const nameRef = useRef<HTMLInputElement>(null);
   const { uid } = params;
   const createGroup = useCreateGroup();
@@ -64,7 +64,7 @@ const Create: FC<Props> = memo(function CreateMemo({ params }) {
         />
       );
     } else {
-      return <AccountCircleIcon sx={{ width: "60px", height: "60px" }} />;
+      return <AccountCircleIcon sx={{ width: '60px', height: '60px' }} />;
       // return <div>AccountCircle</div>;
     }
   };
@@ -80,7 +80,7 @@ const Create: FC<Props> = memo(function CreateMemo({ params }) {
           <input
             type="file"
             accept="image/*"
-            style={{ display: "none" }}
+            style={{ display: 'none' }}
             id="avatar"
             onChange={handleChange}
           />
@@ -117,6 +117,7 @@ const Create: FC<Props> = memo(function CreateMemo({ params }) {
       </Form>
     </>
   );
-});
+};
 
+const Create = memo(CreateMemo);
 export default Create;

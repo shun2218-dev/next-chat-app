@@ -1,10 +1,10 @@
-import React, { RefObject, forwardRef } from "react";
-import { caveat, yujiMai } from "fonts/googleFonts";
+import React, { RefObject, forwardRef } from 'react';
+import { caveat, yujiMai } from 'fonts/googleFonts';
 
-import styles from "@/styles/components/Input.module.scss";
+import styles from '@/styles/components/Input.module.scss';
 
 type Props = {
-  type?: "text" | "email" | "password";
+  type?: 'text' | 'email' | 'password';
   placeholder?: string;
   label?: string;
   required?: boolean;
@@ -13,12 +13,12 @@ type Props = {
 };
 
 const Input = forwardRef<HTMLInputElement, Props>(function InputForwardRef(
-  { type = "text", placeholder, label, required = true, defaultValue },
+  { type = 'text', placeholder, label, required = true, defaultValue },
   ref
 ) {
   return (
     <label
-      className={[styles.input, caveat.variable, yujiMai.variable].join(" ")}
+      className={[styles.input, caveat.variable, yujiMai.variable].join(' ')}
     >
       {label}
       <input
@@ -32,4 +32,4 @@ const Input = forwardRef<HTMLInputElement, Props>(function InputForwardRef(
   );
 });
 
-export default Input;
+export { Input };

@@ -1,11 +1,11 @@
-import React, { memo } from "react";
-import Image from "next/image";
-import logo from "/public/logo.svg";
-import styles from "@/styles/components/Header.module.scss";
-import { useAuthUserStore } from "@/atoms/useAuthUserStore";
-import Link from "next/link";
+import React, { memo } from 'react';
+import Image from 'next/image';
+import logo from '/public/logo.svg';
+import styles from '@/styles/components/Header.module.scss';
+import { useAuthUserStore } from '@/atoms/useAuthUserStore';
+import Link from 'next/link';
 
-const HeaderLogoImage = memo(function HeaderLogoImageMemo() {
+const HeaderLogoImageMemo = () => {
   return (
     <Image
       src={logo}
@@ -16,9 +16,11 @@ const HeaderLogoImage = memo(function HeaderLogoImageMemo() {
       priority
     />
   );
-});
+};
 
-const HeaderLogo = memo(function HeaderLogoMemo() {
+const HeaderLogoImage = memo(HeaderLogoImageMemo);
+
+const HeaderLogoMemo = () => {
   const authUser = useAuthUserStore((state) => state.authUser);
   if (authUser?.uid) {
     return (
@@ -33,6 +35,6 @@ const HeaderLogo = memo(function HeaderLogoMemo() {
       </Link>
     );
   }
-});
+};
 
-export default HeaderLogo;
+export const HeaderLogo = memo(HeaderLogoMemo);

@@ -7,13 +7,14 @@ import React, {
   useEffect,
   useState,
   useMemo,
-} from "react";
-import Image from "next/image";
-import { useAuthUser } from "@/hooks/useAuthUser";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Skeleton } from "@mui/material";
-import styles from "@/styles/components/Avatar.module.scss";
-import Link from "next/link";
+  memo,
+} from 'react';
+import Image from 'next/image';
+import { useAuthUser } from '@/hooks/useAuthUser';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Skeleton } from '@mui/material';
+import styles from '@/styles/components/Avatar.module.scss';
+import Link from 'next/link';
 
 type Props = {
   size?: number;
@@ -25,7 +26,7 @@ type Props = {
   profile?: boolean;
 };
 
-const Avatar: FC<Props> = ({
+const AvatarMemo: FC<Props> = ({
   size = 60,
   state,
   setState,
@@ -39,13 +40,13 @@ const Avatar: FC<Props> = ({
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (setState) {
       if (e.target.files !== null) {
-        setUrl("");
+        setUrl('');
         setState(e.target.files[0]);
       }
     }
   };
   const avatarImageClasses = useMemo(
-    () => [styles.avatar, profile && styles.profile].join(" "),
+    () => [styles.avatar, profile && styles.profile].join(' '),
     [profile]
   );
 
@@ -64,8 +65,8 @@ const Avatar: FC<Props> = ({
   const imageStyle = {
     width: size,
     height: size,
-    borderRadius: "50%",
-    objectFit: "cover",
+    borderRadius: '50%',
+    objectFit: 'cover',
   } as CSSProperties;
 
   const AvatarImage = () => {
@@ -77,7 +78,7 @@ const Avatar: FC<Props> = ({
               src={storageRef}
               alt=""
               style={imageStyle}
-              className={[styles.avatar, profile && styles.profile].join(" ")}
+              className={[styles.avatar, profile && styles.profile].join(' ')}
               width={60}
               height={60}
             />
@@ -133,7 +134,7 @@ const Avatar: FC<Props> = ({
         <input
           type="file"
           accept="image/*"
-          style={{ display: "none" }}
+          style={{ display: 'none' }}
           id="avatar"
           onChange={handleChange}
         />
@@ -142,4 +143,4 @@ const Avatar: FC<Props> = ({
   );
 };
 
-export default Avatar;
+export const Avatar = memo(AvatarMemo);

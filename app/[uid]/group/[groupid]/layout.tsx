@@ -16,10 +16,13 @@ import { useAuthUser } from '@/hooks/useAuthUser';
 import { uploadChatImage } from '@/utils/uploadChatImage';
 
 const MessageInput = dynamic(
-  async () => await import('@/components/messageInput')
+  async () =>
+    await import('@/components/messageInput').then((mod) => mod.MessageInput)
 );
 const NotFoundIcon = dynamic(async () => await import('@/icons/notFoundIcon'));
-const UserList = dynamic(async () => await import('@/components/userList'));
+const UserList = dynamic(
+  async () => await import('@/components/userList').then((mod) => mod.UserList)
+);
 
 export default function GroupChatLayout({
   params,
@@ -78,7 +81,7 @@ export default function GroupChatLayout({
         setNotHistory(false);
       });
     }
-  }, [dataLoading]);
+  }, [chatMessages.length, chatRoom, dataLoading]);
   return (
     <>
       <UserList params={params} group />

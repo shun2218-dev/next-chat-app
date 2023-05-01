@@ -1,21 +1,17 @@
-import React, { FC, memo, useCallback, useState } from "react";
-import { usePage } from "hooks/usePage";
-import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "@/firebase";
-import { NavigationState } from "@/types/NavigationState";
-import { CustomModal } from "@/types/CustomModal";
-import { informationMessage } from "@/utils/infomationMessage";
+import React, { FC, memo, useCallback, useState } from 'react';
+import { usePage } from 'hooks/usePage';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { db } from '@/firebase';
+import { NavigationState } from '@/types/NavigationState';
+import { CustomModal } from '@/types/CustomModal';
+import { informationMessage } from '@/utils/infomationMessage';
 
-import Button from "./button";
-import Modal from "./modal";
+import Button from './button';
+import { Modal } from './modal';
 
-import styles from "@/styles/components/Modal.module.scss";
+import styles from '@/styles/components/Modal.module.scss';
 
-const ExitModal: FC<CustomModal> = memo(function ExitModalMemo({
-  params,
-  open,
-  modalToggle,
-}) {
+const ExitModalMemo: FC<CustomModal> = ({ params, open, modalToggle }) => {
   const { uid, groupid } = params;
   const { toHome } = usePage();
   const [loading, setLoading] = useState(false);
@@ -24,14 +20,14 @@ const ExitModal: FC<CustomModal> = memo(function ExitModalMemo({
     async (groupid: string, uid: string) => {
       setLoading(true);
       const flashMessage = {
-        title: "Success",
-        status: "success",
-        text: "Exit group.",
+        title: 'Success',
+        status: 'success',
+        text: 'Exit group.',
       } as NavigationState;
-      await deleteDoc(doc(db, "groups", groupid, "members", uid))
+      await deleteDoc(doc(db, 'groups', groupid, 'members', uid))
         .then(() => toHome(uid!, flashMessage))
         .then(async () => {
-          await informationMessage(uid, groupid, "existed").then(() =>
+          await informationMessage(uid, groupid, 'existed').then(() =>
             setLoading(false)
           );
         })
@@ -42,7 +38,7 @@ const ExitModal: FC<CustomModal> = memo(function ExitModalMemo({
 
   return (
     <Modal title="Exit this group?" open={open}>
-      <div className={[styles.modalButton, styles.row].join(" ")}>
+      <div className={[styles.modalButton, styles.row].join(' ')}>
         <Button
           type="button"
           color="primary"
@@ -57,7 +53,7 @@ const ExitModal: FC<CustomModal> = memo(function ExitModalMemo({
           type="button"
           color="transparent"
           variant="outlined"
-          onClick={() => modalToggle("exit")}
+          onClick={() => modalToggle('exit')}
           fullWidth
           disabled={loading}
         >
@@ -66,6 +62,6 @@ const ExitModal: FC<CustomModal> = memo(function ExitModalMemo({
       </div>
     </Modal>
   );
-});
+};
 
-export default ExitModal;
+export const ExitModal = memo(ExitModalMemo);

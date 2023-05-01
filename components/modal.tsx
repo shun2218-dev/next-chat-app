@@ -1,7 +1,7 @@
-import React, { FC, FormEvent, memo, ReactNode } from "react";
+import React, { FC, FormEvent, memo, ReactNode } from 'react';
 
-import styles from "@/styles/components/Modal.module.scss";
-import utilStyles from "@/styles/utils/utils.module.scss";
+import styles from '@/styles/components/Modal.module.scss';
+import utilStyles from '@/styles/utils/utils.module.scss';
 
 type Props = {
   title: string;
@@ -11,13 +11,13 @@ type Props = {
   error?: boolean;
 };
 
-const Modal: FC<Props> = memo(function ModalMemo({
+const ModalMemo: FC<Props> = ({
   title,
   children,
   open,
   onSubmit,
   error = false,
-}) {
+}) => {
   return (
     <>
       {open && (
@@ -39,6 +39,6 @@ const Modal: FC<Props> = memo(function ModalMemo({
       )}
     </>
   );
-});
+};
 
-export default Modal;
+export const Modal = memo(ModalMemo);

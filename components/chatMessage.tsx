@@ -7,8 +7,8 @@ import { getUserInfo } from '@/utils/getUserInfo';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Message } from '@/types/Message';
 
-import Avatar from './avatar';
-import InfoMessage from './infoMessage';
+import { Avatar } from './avatar';
+import { InfoMessage } from './infoMessage';
 
 import styles from '@/styles/components/ChatMessage.module.scss';
 import Image from 'next/image';
@@ -18,7 +18,7 @@ type Info = {
   photoURL: string | null;
 };
 
-const ChatMessage: FC<Message> = memo(function ChatMessage({
+const ChatMessageMemo: FC<Message> = ({
   from,
   to,
   createdAt,
@@ -29,7 +29,7 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
   displayName,
   isLastMessage,
   image,
-}) {
+}) => {
   // const { uid, partnerid, groupid } = useParams();
   const { authUser } = useAuthUser();
   const [userInfo, setUserInfo] = useState<Info>({
@@ -41,33 +41,6 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
   useEffect(() => {
     smoothScroll(chatRef);
   }, [chatRef, smoothScroll]);
-  // const [partnerName, setPartnerName] = useState("");
-  // const [partnerPhoto, setPartnerPhoto] = useState("");
-
-  // const getPartnerInfo = async (partnerid: string) => {
-  //   const userRef = doc(db, "users", partnerid);
-  //   const snapshot = await getDoc(userRef);
-  //   return {
-  //     displayName: snapshot.data()!.displayName,
-  //     photoURL: snapshot.data()!.photoURL,
-  //   };
-  // };
-
-  // const getFromInfo = async (from: string, groupid: string) => {
-  //   const fromRef = doc(db, "groups", groupid, "members", from);
-  //   const snapshot = await getDoc(fromRef);
-  //   if (snapshot.data()) {
-  //     return {
-  //       displayName: snapshot?.data()?.displayName,
-  //       photoURL: snapshot?.data()?.photoURL,
-  //     };
-  //   } else {
-  //     return {
-  //       displayName: "Unknown",
-  //       photoURL: snapshot?.data()?.photoURL,
-  //     };
-  //   }
-  // };
 
   useEffect(() => {
     getUserInfo(from).then((user) => {
@@ -83,18 +56,6 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
         });
       }
     });
-    // Set Unknown user if the user is existed.
-    // if (partnerid) {
-    //   getPartnerInfo(partnerid).then(({ displayName, photoURL }) => {
-    //     setPartnerName(displayName);
-    //     setPartnerPhoto(photoURL);
-    //   });
-    // } else if (groupid) {
-    //   getFromInfo(from, groupid).then(({ displayName, photoURL }) => {
-    //     setPartnerName(displayName);
-    //     setPartnerPhoto(photoURL);
-    //   });
-    // }
   }, [from]);
 
   return (
@@ -116,7 +77,13 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
           </li>
           {image && (
             <li className={styles.chatImage}>
-              <Image src={image} alt="" width={200} height={150} />
+              <Image
+                src={image}
+                alt=""
+                width={200}
+                height={150}
+                priority={true}
+              />
             </li>
           )}
         </ul>
@@ -162,6 +129,6 @@ const ChatMessage: FC<Message> = memo(function ChatMessage({
       )}
     </>
   );
-});
+};
 
-export default ChatMessage;
+export const ChatMessage = memo(ChatMessageMemo);

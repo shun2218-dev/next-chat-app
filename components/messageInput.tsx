@@ -5,6 +5,7 @@ import React, {
   SetStateAction,
   useState,
   ChangeEvent,
+  memo,
 } from 'react';
 
 import SendIcon from '@/icons/sendIcon';
@@ -22,7 +23,7 @@ type Props = {
   testid?: string;
 };
 
-const MessageInput: FC<Props> = ({
+const MessageInputMemo: FC<Props> = ({
   onSubmit,
   setState,
   setImageState,
@@ -69,4 +70,4 @@ const MessageInput: FC<Props> = ({
   );
 };
 
-export default MessageInput;
+export const MessageInput = memo(MessageInputMemo);

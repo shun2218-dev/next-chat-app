@@ -7,7 +7,7 @@ import styles from '@/styles/components/Header.module.scss';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAuthUserStore } from '@/atoms/useAuthUserStore';
 import { useSignOut } from '@/hooks/useSignOut';
-import HeaderLogo from './headerLogo';
+import { HeaderLogo } from './headerLogo';
 
 const Button = dynamic(() => import('@/components/button'));
 const SignOutIcon = dynamic(() => import('@/icons/signOutIcon'));

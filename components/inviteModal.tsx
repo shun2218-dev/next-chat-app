@@ -5,29 +5,29 @@ import React, {
   memo,
   useCallback,
   useState,
-} from "react";
-import Image from "next/image";
-import { informationMessage } from "@/utils/infomationMessage";
-import { getUserInfo } from "@/utils/getUserInfo";
-import { db } from "@/firebase";
-import { doc, setDoc } from "firebase/firestore";
-import { CustomModal } from "@/types/CustomModal";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+} from 'react';
+import Image from 'next/image';
+import { informationMessage } from '@/utils/infomationMessage';
+import { getUserInfo } from '@/utils/getUserInfo';
+import { db } from '@/firebase';
+import { doc, setDoc } from 'firebase/firestore';
+import { CustomModal } from '@/types/CustomModal';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-import Button from "./button";
-import Modal from "./modal";
+import Button from './button';
+import { Modal } from './modal';
 
-import utilStyles from "@/styles/utils/utils.module.scss";
-import styles from "@/styles/components/Modal.module.scss";
+import utilStyles from '@/styles/utils/utils.module.scss';
+import styles from '@/styles/components/Modal.module.scss';
 
-const InviteModal: FC<CustomModal> = memo(function InviteModalMemo({
+const InviteModalMemo: FC<CustomModal> = ({
   params,
   open,
   modalToggle,
   inviteUsers,
   inviteIds,
   setInviteIds,
-}) {
+}) => {
   const { uid, groupid } = params;
   const [loading, setLoading] = useState(false);
   const [targetIds, setTargetIds] = useState<string[]>([]);
@@ -38,14 +38,14 @@ const InviteModal: FC<CustomModal> = memo(function InviteModalMemo({
     if (inviteIds!.length !== 0) {
       inviteIds!.forEach(async (invite) => {
         setLoading(true);
-        const inviteRef = doc(db, "groups", groupid!, "invitations", invite!);
+        const inviteRef = doc(db, 'groups', groupid!, 'invitations', invite!);
         await getUserInfo(invite!).then(async (user) => {
           await setDoc(inviteRef, user).then(onClose);
         });
       });
 
       targetIds.forEach(async (targetIds) => {
-        await informationMessage(uid!, groupid!, "invited", targetIds);
+        await informationMessage(uid!, groupid!, 'invited', targetIds);
       });
     }
   };
@@ -68,7 +68,7 @@ const InviteModal: FC<CustomModal> = memo(function InviteModalMemo({
 
   const onClose = useCallback(() => {
     if (setInviteIds) {
-      modalToggle("invite");
+      modalToggle('invite');
       setInviteIds([]);
       setTargetIds([]);
       setLoading(false);
@@ -77,12 +77,12 @@ const InviteModal: FC<CustomModal> = memo(function InviteModalMemo({
 
   return (
     <Modal title="Select the member to invite" open={open} onSubmit={onSubmit}>
-      <ul className={[styles.userList, styles.invite].join(" ")}>
+      <ul className={[styles.userList, styles.invite].join(' ')}>
         {inviteUsers!.length ? (
           inviteUsers!.map((user) => (
             <label key={user.id} className={styles.label}>
               <li
-                className={[styles.user, styles.passive].join(" ")}
+                className={[styles.user, styles.passive].join(' ')}
                 onClick={() => {}}
               >
                 <input
@@ -105,7 +105,7 @@ const InviteModal: FC<CustomModal> = memo(function InviteModalMemo({
                     sx={{
                       width: 60,
                       height: 60,
-                      "@media screen and (max-width:1000px)": {
+                      '@media screen and (max-width:1000px)': {
                         width: 40,
                         height: 40,
                       },
@@ -115,7 +115,7 @@ const InviteModal: FC<CustomModal> = memo(function InviteModalMemo({
                 <p>
                   {user.data().displayName
                     ? user.data().displayName
-                    : "Unknown"}
+                    : 'Unknown'}
                 </p>
               </li>
             </label>
@@ -147,6 +147,6 @@ const InviteModal: FC<CustomModal> = memo(function InviteModalMemo({
       </div>
     </Modal>
   );
-});
+};
 
-export default InviteModal;
+export const InviteModal = memo(InviteModalMemo);

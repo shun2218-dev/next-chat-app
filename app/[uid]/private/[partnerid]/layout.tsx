@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect, ReactNode, FormEvent } from 'react';
 import { PageParam } from '@/types/PageParam';
-import MessageInput from '@/components/messageInput';
+import { MessageInput } from '@/components/messageInput';
 import { useChatMessage } from '@/hooks/useChatMessage';
 import styles from '@/styles/pages/Private.module.scss';
 import isCreatedRoom from '@/utils/private/isCreatedRoom';
@@ -88,7 +88,7 @@ export default function PrivateChatLayout({
         setNotHistory(false);
       });
     }
-  }, [dataLoading]);
+  }, [chatMessages.length, chatRoom, dataLoading, roomExist]);
   return (
     <>
       <div className={styles.chatRoom}>

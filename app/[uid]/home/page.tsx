@@ -1,7 +1,6 @@
 'use client';
 import React, { memo } from 'react';
 import { useAuthUser } from '@/hooks/useAuthUser';
-import { usePage } from 'hooks/usePage';
 import styles from '@/styles/pages/Home.module.scss';
 // import { useFlashMessage } from "@/hooks/useFlashMessage";
 
@@ -10,11 +9,8 @@ import Card from '@/components/card';
 import PrivateIcon from '@/icons/privateIcon';
 import GroupIcon from '@/icons/groupIcon';
 
-const Home = memo(function HomeMemo() {
+const Home = () => {
   const { authUser } = useAuthUser();
-  const { toPrivate, toGroup } = usePage();
-  // const { messageState, flashState } = useFlashMessage(10000);
-
   return (
     <>
       {/* {flashState && <FlashMessage {...messageState!} />} */}
@@ -36,6 +32,6 @@ const Home = memo(function HomeMemo() {
       </div>
     </>
   );
-});
+};
 
 export default Home;

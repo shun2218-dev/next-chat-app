@@ -7,17 +7,17 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useAuthUser } from '@/hooks/useAuthUser';
 import { doc, updateDoc } from 'firebase/firestore';
 
-import Avatar from '@/components/avatar';
+import { Avatar } from '@/components/avatar';
 import Button from '@/components/button';
-import Form from '@/components/form';
-import Input from '@/components/input';
+import { Form } from '@/components/form';
+import { Input } from '@/components/input';
 import SettingIcon from '@/icons/settingIcon';
 import UploadIcon from '@/icons/uploadIcon';
 import { useAuthUserStore } from '@/atoms/useAuthUserStore';
 // import FlashMessage from "@/components/flashMessage";
 // import { useFlashMessage } from "@/hooks/useFlashMessage";
 
-const Profile = memo(function ProfileMemo() {
+const ProfileMemo = () => {
   const { toHome } = usePage();
   const { authUser } = useAuthUser();
   const { setState } = useAuthUserStore;
@@ -139,6 +139,7 @@ const Profile = memo(function ProfileMemo() {
       </Form>
     </>
   );
-});
+};
 
+const Profile = memo(ProfileMemo);
 export default Profile;

@@ -5,7 +5,7 @@ import { collection, onSnapshot } from 'firebase/firestore';
 import styles from '@/styles/pages/Join.module.scss';
 import utilStyles from '@/styles/utils/utils.module.scss';
 import { usePage } from '@/hooks/usePage';
-import Form from '@/components/form';
+import { Form } from '@/components/form';
 import Image from 'next/image';
 import { PageParam } from '@/types/PageParam';
 import Link from 'next/link';
@@ -21,7 +21,7 @@ type Props = {
   params: PageParam;
 };
 
-const Join: FC<Props> = memo(function JoinMemo({ params }) {
+const JoinMemo: FC<Props> = ({ params }) => {
   const [groups, setGroups] = useState<Groups[]>([]);
   const [loading, setLoading] = useState<Boolean>(false);
   const { toGroupRoom } = usePage();
@@ -69,6 +69,7 @@ const Join: FC<Props> = memo(function JoinMemo({ params }) {
       </ul>
     </Form>
   );
-});
+};
 
+const Join = memo(JoinMemo);
 export default Join;

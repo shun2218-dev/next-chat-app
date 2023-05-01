@@ -1,8 +1,8 @@
 'use client';
-import React, { memo, FormEvent, useEffect, useRef } from 'react';
+import React, { FormEvent, useEffect, useRef } from 'react';
 
-import Form from '@/components/form';
-import Input from '@/components/input';
+import { Form } from '@/components/form';
+import { Input } from '@/components/input';
 import Button from '@/components/button';
 import SignInIcon from '@/icons/signInIcon';
 import LockIcon from '@/icons/lockIcon';
@@ -15,7 +15,9 @@ import { useSignIn } from '@/hooks/useSignIn';
 
 import { useAuthUser } from '@/hooks/useAuthUser';
 
-const Login = memo(function LoginMemo() {
+export const revalidate = 1;
+
+const Login = () => {
   const { authUser } = useAuthUser();
   const { toUser } = usePage();
   const { signIn, loading, error } = useSignIn();
@@ -90,6 +92,6 @@ const Login = memo(function LoginMemo() {
       </Form>
     </>
   );
-});
+};
 
 export default Login;

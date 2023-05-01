@@ -1,6 +1,6 @@
-import { useAuthUserStore } from "@/atoms/useAuthUserStore";
-import { useEffect } from "react";
-import { usePage } from "./usePage";
+import { useAuthUserStore } from '@/atoms/useAuthUserStore';
+import { useEffect } from 'react';
+import { usePage } from './usePage';
 
 export const useAuthRedirect = () => {
   const { toHome, toProfile, toLogin } = usePage();

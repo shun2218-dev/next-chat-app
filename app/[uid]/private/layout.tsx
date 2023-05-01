@@ -1,7 +1,7 @@
-"use client";
-import { Suspense } from "react";
-import { PageParam } from "@/types/PageParam";
-import UserList from "@/components/userList";
+'use client';
+import { Suspense } from 'react';
+import { PageParam } from '@/types/PageParam';
+import { UserList } from '@/components/userList';
 
 export default function PrivateLayout({
   params,

@@ -5,29 +5,29 @@ import React, {
   useMemo,
   memo,
   FC,
-} from "react";
-import Image from "next/image";
-import { useAuthUser } from "@/hooks/useAuthUser";
-import { usePage } from "hooks/usePage";
-import styles from "@/styles/components/UserList.module.scss";
-import utilStyles from "@/styles/utils/utils.module.scss";
+} from 'react';
+import Image from 'next/image';
+import { useAuthUser } from '@/hooks/useAuthUser';
+import { usePage } from 'hooks/usePage';
+import styles from '@/styles/components/UserList.module.scss';
+import utilStyles from '@/styles/utils/utils.module.scss';
 import {
   collection,
   DocumentData,
   QueryDocumentSnapshot,
   onSnapshot,
   QuerySnapshot,
-} from "firebase/firestore";
-import { db } from "@/firebase";
+} from 'firebase/firestore';
+import { db } from '@/firebase';
 
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import Button from "./button";
-import JoinModal from "./joinModal";
-import ExitModal from "./exitModal";
-import InviteModal from "./inviteModal";
-import CancelModal from "./cancelModal";
-import { PageParam } from "@/types/PageParam";
-import { usePathname } from "next/navigation";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Button from './button';
+import CancelModal from './cancelModal';
+import { PageParam } from '@/types/PageParam';
+import { usePathname } from 'next/navigation';
+import { JoinModal } from './joinModal';
+import { InviteModal } from './inviteModal';
+import { ExitModal } from './exitModal';
 
 export type Props = {
   params: PageParam;
@@ -36,20 +36,17 @@ export type Props = {
 
 export type FirebaseData = QueryDocumentSnapshot<DocumentData>;
 
-const UserList: FC<Props> = memo(function UserListMemo({
-  params,
-  group = false,
-}) {
+const UserListMemo: FC<Props> = ({ params, group = false }) => {
   const pathname = usePathname();
   const getId = useCallback(() => {
-    return pathname?.split("/")[3];
+    return pathname?.split('/')[3];
   }, [pathname]);
   const { authUser } = useAuthUser();
   const { toPrivateRoom } = usePage();
   const [roomId, setRoomId] = useState(getId());
   const [ids, setIds] = useState<string[]>([]);
   const [inviteIds, setInviteIds] = useState<string[]>([]);
-  const [cancelId, setCancelId] = useState("");
+  const [cancelId, setCancelId] = useState('');
   const [allUsers, setAllUsers] = useState<FirebaseData[]>([]);
   const [users, setUsers] = useState<FirebaseData[]>([]);
   const [inviteUsers, setInviteUsers] = useState<FirebaseData[]>([]);
@@ -61,13 +58,13 @@ const UserList: FC<Props> = memo(function UserListMemo({
 
   const modalToggle = useCallback(
     (target: string) => {
-      if (target === "invite") {
+      if (target === 'invite') {
         setInviteOpen(!inviteOpen);
-      } else if (target === "exit") {
+      } else if (target === 'exit') {
         setExitOpen(!exitOpen);
-      } else if (target === "join") {
+      } else if (target === 'join') {
         setJoinOpen(!joinOpen);
-      } else if (target === "cancel") {
+      } else if (target === 'cancel') {
         setCancelOpen(!cancelOpen);
       }
     },
@@ -75,7 +72,7 @@ const UserList: FC<Props> = memo(function UserListMemo({
   );
 
   const isGroupActiveStyle = useMemo(
-    () => (group ? styles.active : ""),
+    () => (group ? styles.active : ''),
     [group]
   );
   const isNotMember = useCallback(
@@ -89,7 +86,7 @@ const UserList: FC<Props> = memo(function UserListMemo({
   );
 
   const isGroupStyle: string = useMemo(
-    () => (roomId && group ? styles.group : ""),
+    () => (roomId && group ? styles.group : ''),
     [roomId, group]
   );
 
@@ -98,7 +95,7 @@ const UserList: FC<Props> = memo(function UserListMemo({
   }, [pathname, getId]);
 
   useEffect(() => {
-    const userRef = collection(db, "users");
+    const userRef = collection(db, 'users');
     const unSubUser = onSnapshot(userRef, (snapshot) => {
       setAllUsers([...snapshot.docs.map((doc) => doc)]);
     });
@@ -108,9 +105,9 @@ const UserList: FC<Props> = memo(function UserListMemo({
   }, []);
 
   useEffect(() => {
-    const userRef = collection(db, "users");
+    const userRef = collection(db, 'users');
     if (group && roomId) {
-      const groupMembersRef = collection(db, "groups", roomId, "members");
+      const groupMembersRef = collection(db, 'groups', roomId, 'members');
       const unSub = onSnapshot(groupMembersRef, (snapshot) => {
         if (isNotMember(snapshot) && !joinOpen) {
           setJoinOpen(true);
@@ -132,7 +129,7 @@ const UserList: FC<Props> = memo(function UserListMemo({
         unSub();
       };
     }
-  }, [group, roomId]);
+  }, [authUser?.uid, group, isNotMember, joinOpen, roomId]);
 
   useEffect(() => {
     const notMembers = allUsers.filter(
@@ -142,11 +139,11 @@ const UserList: FC<Props> = memo(function UserListMemo({
       (member) => inviteIds.includes(member.id) === false
     );
     setInviteUsers([...notInvited]);
-  }, [allUsers]);
+  }, [allUsers, ids, inviteIds]);
 
   useEffect(() => {
     if (roomId && group) {
-      const inviteRef = collection(db, "groups", roomId, "invitations");
+      const inviteRef = collection(db, 'groups', roomId, 'invitations');
       const unSub = onSnapshot(inviteRef, (snapshot) => {
         setInviteLists([...snapshot.docs.map((doc) => doc)]);
         setInviteIds([...snapshot.docs.map((doc) => doc.id)]);
@@ -177,10 +174,10 @@ const UserList: FC<Props> = memo(function UserListMemo({
       />
       <div className={styles.container}>
         <p className={styles.listTitle}>
-          {group ? "Members" : "Users"} {`(${users.length})`}
+          {group ? 'Members' : 'Users'} {`(${users.length})`}
         </p>
         <ul className={styles.memberList}>
-          <ul className={[styles.userList, isGroupStyle].join(" ")}>
+          <ul className={[styles.userList, isGroupStyle].join(' ')}>
             {users.length ? (
               users.map((user) => (
                 <li
@@ -189,7 +186,7 @@ const UserList: FC<Props> = memo(function UserListMemo({
                     styles.user,
                     roomId === user.id ? styles.active : styles.passive,
                     isGroupActiveStyle,
-                  ].join(" ")}
+                  ].join(' ')}
                   onClick={() => {
                     !group && toPrivateRoom(authUser?.uid!, user.id);
                   }}
@@ -207,7 +204,7 @@ const UserList: FC<Props> = memo(function UserListMemo({
                       sx={{
                         width: 60,
                         height: 60,
-                        "@media screen and (max-width:1000px)": {
+                        '@media screen and (max-width:1000px)': {
                           width: 40,
                           height: 40,
                         },
@@ -215,7 +212,7 @@ const UserList: FC<Props> = memo(function UserListMemo({
                     />
                     // <div>Account Circle</div>
                   )}
-                  <p>{user.data().displayName ?? "Unknown"}</p>
+                  <p>{user.data().displayName ?? 'Unknown'}</p>
                 </li>
               ))
             ) : (
@@ -228,14 +225,14 @@ const UserList: FC<Props> = memo(function UserListMemo({
               <li
                 className={styles.listTitle}
               >{`Invitation (${inviteLists.length})`}</li>
-              <ul className={[styles.userList, styles.invite].join(" ")}>
+              <ul className={[styles.userList, styles.invite].join(' ')}>
                 {inviteLists.length ? (
                   inviteLists.map((inviteList) => (
                     <li
                       key={inviteList.id}
                       className={styles.user}
                       onClick={() => {
-                        modalToggle("cancel");
+                        modalToggle('cancel');
                         setCancelId(inviteList.id);
                       }}
                     >
@@ -251,7 +248,7 @@ const UserList: FC<Props> = memo(function UserListMemo({
                   ))
                 ) : (
                   <div
-                    className={[utilStyles.textCenter, styles.nobody].join(" ")}
+                    className={[utilStyles.textCenter, styles.nobody].join(' ')}
                   >
                     Nobody invited
                   </div>
@@ -263,7 +260,7 @@ const UserList: FC<Props> = memo(function UserListMemo({
                   color="success"
                   variant="outlined"
                   fullWidth
-                  onClick={() => modalToggle("invite")}
+                  onClick={() => modalToggle('invite')}
                 >
                   Invite
                 </Button>
@@ -272,7 +269,7 @@ const UserList: FC<Props> = memo(function UserListMemo({
                   color="error"
                   variant="outlined"
                   fullWidth
-                  onClick={() => modalToggle("exit")}
+                  onClick={() => modalToggle('exit')}
                 >
                   Exit
                 </Button>
@@ -283,6 +280,6 @@ const UserList: FC<Props> = memo(function UserListMemo({
       </div>
     </>
   );
-});
+};
 
-export default UserList;
+export const UserList = memo(UserListMemo);

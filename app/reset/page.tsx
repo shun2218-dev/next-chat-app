@@ -1,16 +1,16 @@
-"use client";
-import React, { memo, FormEvent, useRef } from "react";
-import { usePage } from "@/hooks/usePage";
-import { usePasswordReset } from "@/hooks/usePasswordReset";
+'use client';
+import React, { FormEvent, useRef } from 'react';
+import { usePasswordReset } from '@/hooks/usePasswordReset';
 
-import Button from "@/components/button";
-import Form from "@/components/form";
-import Input from "@/components/input";
-import MailIcon from "@/icons/mailIcon";
-import ResetIcon from "@/icons/resetIcon";
+import Button from '@/components/button';
+import { Form } from '@/components/form';
+import { Input } from '@/components/input';
+import MailIcon from '@/icons/mailIcon';
+import ResetIcon from '@/icons/resetIcon';
 
-const Reset = memo(function ResetMemo() {
-  const { toLogin } = usePage();
+export const revalidate = 1;
+
+const Reset = () => {
   const { passwordReset } = usePasswordReset();
   const emailRef = useRef<HTMLInputElement>(null);
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -51,6 +51,6 @@ const Reset = memo(function ResetMemo() {
       </Form>
     </>
   );
-});
+};
 
 export default Reset;

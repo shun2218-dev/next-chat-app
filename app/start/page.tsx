@@ -1,17 +1,17 @@
 'use client';
-import React, { memo, useEffect } from 'react';
+import React from 'react';
 import logo from 'public/logo.svg';
 import reactLogo from 'public/logo_react.svg';
 import styles from '@/styles/pages/Start.module.scss';
-import { usePage } from '@/hooks/usePage';
 import Button from '@/components/button';
 import Image from 'next/image';
 import { analytics } from '@/firebase';
 import Link from 'next/link';
 import ArrowTopRight from '@/icons/arrowTopRight';
 
-const Start = memo(function StartMemo() {
-  const { toLogin, toRegist } = usePage();
+export const revalidate = 1;
+
+const Start = () => {
   const removeHomeClass = () => {
     document.body.classList.remove('home');
     document.body.classList.remove('pace-done');
@@ -74,6 +74,6 @@ const Start = memo(function StartMemo() {
       </Button>
     </div>
   );
-});
+};
 
 export default Start;

@@ -1,23 +1,18 @@
-import React, { FC, memo, useEffect, useState } from "react";
-import styles from "@/styles/components/ChatMessage.module.scss";
-import { getUserInfo } from "@/utils/getUserInfo";
-import { useSmoothScroll } from "hooks/useSmoothScroll";
+import React, { FC, memo, useEffect, useState } from 'react';
+import styles from '@/styles/components/ChatMessage.module.scss';
+import { getUserInfo } from '@/utils/getUserInfo';
+import { useSmoothScroll } from 'hooks/useSmoothScroll';
 
 type Props = {
-  status: "joined" | "existed" | "invited" | "canceled";
+  status: 'joined' | 'existed' | 'invited' | 'canceled';
   from: string;
   to: string;
   isLastMessage: boolean;
 };
 
-const InfoMessage: FC<Props> = memo(function InfoMessageMemo({
-  status,
-  from,
-  to,
-  isLastMessage,
-}) {
-  const [toName, setToName] = useState("");
-  const [fromName, setFromName] = useState("");
+const InfoMessageMemo: FC<Props> = ({ status, from, to, isLastMessage }) => {
+  const [toName, setToName] = useState('');
+  const [fromName, setFromName] = useState('');
   const { infoRef, smoothScroll } = useSmoothScroll(isLastMessage);
 
   useEffect(() => {
@@ -39,13 +34,13 @@ const InfoMessage: FC<Props> = memo(function InfoMessageMemo({
     });
   }, [from, to]);
 
-  if (status === "joined" || status === "existed") {
+  if (status === 'joined' || status === 'existed') {
     return (
       <div className={styles.info} ref={infoRef}>
         <p>{`${fromName} is ${status}!`}</p>
       </div>
     );
-  } else if (status === "invited") {
+  } else if (status === 'invited') {
     return (
       <div className={styles.info} ref={infoRef}>
         <p>{`${toName} is ${status} by ${fromName}!`}</p>
@@ -58,6 +53,6 @@ const InfoMessage: FC<Props> = memo(function InfoMessageMemo({
       </div>
     );
   }
-});
+};
 
-export default InfoMessage;
+export const InfoMessage = memo(InfoMessageMemo);
